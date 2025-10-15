@@ -31,7 +31,7 @@ composer require boldminded/craft-dexter
 
 # Documentation
 
-Craft specific docs will be added soon. For the time being refer to the ExpressionEngine docs at https://docs.boldminded.com/dexter.
+https://docs.boldminded.com/dexter/docs-craft
 
 ## Template Tags
 
