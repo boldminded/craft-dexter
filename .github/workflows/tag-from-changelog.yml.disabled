@@ -1,0 +1,106 @@
+name: Tag & version from CHANGELOG
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'CHANGELOG.md' # run only when the changelog changes
+
+permissions:
+  contents: write
+
+jobs:
+  tag-from-changelog:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # we need tags and history
+
+      - name: Extract version & date from CHANGELOG
+        id: extract
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          # Find the FIRST line that looks like: "## 1.2.3 - 2025-10-20" (v prefix optional)
+          LINE="$(grep -m1 -E '^[#[:space:]]*v?[0-9]+\.[0-9]+\.[0-9]+[[:space:]]*-[[:space:]]*[0-9]{4}-[0-9]{2}-[0-9]{2}' CHANGELOG.md || true)"
+
+          if [ -z "$LINE" ]; then
+            echo "No valid version line with date found at top of CHANGELOG. Skipping."
+            echo "should_run=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          VERSION="$(sed -E 's/^[#[:space:]]*v?([0-9]+\.[0-9]+\.[0-9]+).*/\1/' <<< "$LINE")"
+          DATE_STR="$(sed -E 's/.*- *([0-9]{4}-[0-9]{2}-[0-9]{2}).*/\1/' <<< "$LINE")"
+
+          # Validate date using GNU date
+          if ! date -d "$DATE_STR" '+%Y-%m-%d' >/dev/null 2>&1; then
+            echo "Found version but date is invalid: $DATE_STR. Skipping."
+            echo "should_run=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          echo "Found version=$VERSION date=$DATE_STR"
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "date=$DATE_STR"    >> "$GITHUB_OUTPUT"
+          echo "should_run=true"   >> "$GITHUB_OUTPUT"
+
+      - name: Stop if not applicable
+        if: steps.extract.outputs.should_run != 'true'
+        run: echo "No action required."
+
+      - name: Stop if tag already exists
+        if: steps.extract.outputs.should_run == 'true'
+        id: tagcheck
+        run: |
+          if git rev-parse "v${{ steps.extract.outputs.version }}" >/dev/null 2>&1; then
+            echo "Tag v${{ steps.extract.outputs.version }} already exists. Skipping."
+            echo "should_continue=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "should_continue=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Update composer.json version, commit, and push
+        if: steps.tagcheck.outputs.should_continue == 'true'
+        run: |
+          set -euo pipefail
+
+          VERSION="${{ steps.extract.outputs.version }}"
+
+          # Update composer.json's "version" field to match
+          sudo apt-get update -y
+          sudo apt-get install -y jq
+          jq --arg v "$VERSION" '.version=$v' composer.json > composer.json.tmp
+          mv composer.json.tmp composer.json
+
+          # Commit the change
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if ! git diff --quiet; then
+            git add composer.json
+            git commit -m "chore(release): bump composer.json to v$VERSION (from CHANGELOG)"
+            # Push the branch update so the tag points at the commit with the new version
+            git push
+          else
+            echo "No changes to commit."
+          fi
+
+      - name: Create and push tag
+        if: steps.tagcheck.outputs.should_continue == 'true'
+        run: |
+          VERSION="${{ steps.extract.outputs.version }}"
+          git tag "v$VERSION" -m "Release v$VERSION - ${{ steps.extract.outputs.date }}"
+          git push origin "v$VERSION"
+
+      # OPTIONAL: create a GitHub Release (auto notes)
+      - name: Create GitHub Release
+        if: steps.tagcheck.outputs.should_continue == 'true'
+        uses: ncipollo/release-action@v1
+        with:
+          tag: "v${{ steps.extract.outputs.version }}"
+          name: "v${{ steps.extract.outputs.version }}"
+          generateReleaseNotes: true
