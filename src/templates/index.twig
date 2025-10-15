@@ -1,0 +1,98 @@
+{% extends "_layouts/cp" %}
+{% import "_includes/forms" as forms %}
+
+{% set crumbs = [
+    { label: "Dexter", url: url('dexter') },
+] %}
+
+{% requireAdmin %}
+
+{% block sidebar %}
+    {% include 'dexter/_sidenav.twig' %}
+{% endblock %}
+
+{% block content %}
+
+    {% include 'dexter/_notifications.twig' %}
+
+    <div id="nofeeds" class="zilch{% if indices %} hidden{% endif %}">
+        <p>{{ "No indices exist yet."|t('dexter') }}</p>
+    </div>
+
+    {% if indices|length %}
+        <table id="feeds" class="data fullwidth collapsible table-dexter">
+            <thead>
+                <th scope="col">{{ "Index Name"|t('dexter') }}</th>
+                <th scope="col">{{ "Total Documents"|t('dexter') }}</th>
+                <th scope="col">{{ "Total Document Size (bytes)"|t('dexter') }}</th>
+                <th scope="col">{{ "Avg Document Size (bytes)"|t('dexter') }}</th>
+                <th scope="col" colspan="2"></th>
+            </thead>
+            <tbody>
+            {% for index in indices %}
+                <tr data-id="{{ index.indexName }}" data-name="{{ index.indexName }}">
+                    <th scope="row" data-title="Name">
+                        {{ index.indexName }}
+                    </th>
+
+                    <td>{{ index.documentCount }}</td>
+                    <td>{{ index.totalSize }}</td>
+                    <td>{{ index.avgSize }}</td>
+
+                    <td class="thin action">
+                        <div class="btngroup" role="group">
+                            <a href="{{ url('dexter/clear-index', { name: index.indexName }) }}" type="button" class="icon btn">
+                                <div class="inline-flex">
+                                    <div class="cp-icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" focusable="false" aria-hidden="true">
+                                            <path d="M290.7 57.4L57.4 290.7c-25 25-25 65.5 0 90.5l80 80c12 12 28.3 18.7 45.3 18.7L288 480l9.4 0L512 480c17.7 0 32-14.3 32-32s-14.3-32-32-32l-124.1 0L518.6 285.3c25-25 25-65.5 0-90.5L381.3 57.4c-25-25-65.5-25-90.5 0zM297.4 416l-9.4 0-105.4 0-80-80L227.3 211.3 364.7 348.7 297.4 416z"></path>
+                                        </svg>
+                                    </div>
+                                    <div class="label">Clear</div>
+                                </div>
+                            </a>
+
+                            <a href="{{ url('dexter/delete-index', { name: index.indexName }) }}" type="button" class="icon btn">
+                                <div class="inline-flex">
+                                    <div class="cp-icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" focusable="false" aria-hidden="true">
+                                            <path d="M135.2 17.7L128 32 32 32C14.3 32 0 46.3 0 64S14.3 96 32 96l384 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-96 0-7.2-14.3C307.4 6.8 296.3 0 284.2 0L163.8 0c-12.1 0-23.2 6.8-28.6 17.7zM416 128L32 128 53.2 467c1.6 25.3 22.6 45 47.9 45l245.8 0c25.3 0 46.3-19.7 47.9-45L416 128z"></path>
+                                        </svg>
+                                    </div>
+                                    <div class="label">Delete</div>
+                                </div>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+
+            {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+
+    <form method="post" accept-charset="UTF-8" action="{{ cpUrl('dexter/re-index') }}">
+        {{ csrfInput() }}
+        {{ redirectInput('dexter') }}
+
+        {{ forms.selectField({
+            label: "Choose an index to rebuild."|t,
+            instructions: "If an object does not exist, it will be created in "~ providerName ~". If it already exists, it\'ll get updated."|t,
+            name: 'indexSource',
+            options: choices,
+        }) }}
+
+        {{ forms.lightswitchField({
+            label: "Clear Index"|t,
+            instructions: "If you would like to clear all existing objects from the index prior to reindexing."|t,
+            name: 'clear',
+        }) }}
+
+
+
+        <div class="btngroup">
+            <input type="submit" class="btn submit" value="{{ 'Start Indexing' | t('dexter') }}">
+        </div>
+    </form>
+
+{% endblock %}

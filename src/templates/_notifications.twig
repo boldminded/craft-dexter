@@ -1,0 +1,10 @@
+{% if craft.app.session.hasFlash('dexterNotice') %}
+    <div class="success with-icon" style="margin-bottom: 1rem;"><span class="icon" data-icon="check"></span>
+        {{ craft.app.session.getFlash('dexterNotice')|raw }}
+    </div>
+{% endif %}
+{% if craft.app.session.hasFlash('dexterError') %}
+    <div class="error with-icon" style="margin-bottom: 1rem;"><span class="icon" data-icon="alert"></span>
+        {{ craft.app.session.getFlash('dexterError')|raw }}
+    </div>
+{% endif %}

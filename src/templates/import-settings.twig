@@ -1,0 +1,48 @@
+{% extends "_layouts/cp" %}
+{% import "_includes/forms" as forms %}
+
+{% set crumbs = [
+    { label: "Dexter", url: url('dexter') },
+    { label: "Import Settings"|t('import-settings'), },
+] %}
+
+{% requireAdmin %}
+{% set fullPageForm = false %}
+
+{% block sidebar %}
+    {% include 'dexter/_sidenav.twig' %}
+{% endblock %}
+
+{% block content %}
+
+    {% include 'dexter/_notifications.twig' %}
+
+    {% if files is empty %}
+        <p>Please create a settings file, or use the Export Settings option to export the settings from an existing index.</p>
+        <p>For more information refer to the <a href="https://docs.boldminded.com/dexter/docs/configuration/configuring-indices">documentation</a>.</p>
+    {% else %}
+        <form method="post" accept-charset="UTF-8" action="{{ cpUrl('dexter/import-settings') }}">
+            {{ csrfInput() }}
+            {{ redirectInput('dexter/export-settings') }}
+
+            {{ forms.selectField({
+                label: "Import Index Settings"|t,
+                instructions: "Choose the index which will have the selected settings file applied to."|t,
+                name: 'importSource',
+                options: choices,
+            }) }}
+
+            {{ forms.selectField({
+                label: "Settings File"|t,
+                instructions: "Choose the settings file located in the <code>"~ configPath ~"</code> directory that will be applied to the chosen index."|t,
+                name: 'importSettings',
+                options: files,
+            }) }}
+
+            <div class="btngroup">
+                <input type="submit" class="btn submit" value="{{ 'Import' | t('import') }}">
+            </div>
+        </form>
+    {% endif %}
+
+{% endblock %}

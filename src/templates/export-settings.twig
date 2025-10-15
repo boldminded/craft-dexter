@@ -1,0 +1,36 @@
+{% extends "_layouts/cp" %}
+{% import "_includes/forms" as forms %}
+
+{% set crumbs = [
+    { label: "Dexter", url: url('dexter') },
+    { label: "Export Settings"|t('export-settings'), },
+] %}
+
+{% requireAdmin %}
+{% set fullPageForm = false %}
+
+{% block sidebar %}
+    {% include 'dexter/_sidenav.twig' %}
+{% endblock %}
+
+{% block content %}
+
+    {% include 'dexter/_notifications.twig' %}
+
+    <form method="post" accept-charset="UTF-8" action="{{ cpUrl('dexter/export-settings') }}">
+        {{ csrfInput() }}
+        {{ redirectInput('dexter/export-settings') }}
+
+        {{ forms.selectField({
+            label: "Export Index Settings"|t,
+            instructions: "Export the selected index's settings to a .json file in the <code>"~ configPath ~"</code> directory. You can make changes to the settings, then import them to update the settings in "~ providerName ~"."|t,
+            name: 'exportIndex',
+            options: choices,
+        }) }}
+
+        <div class="btngroup">
+            <input type="submit" class="btn submit" value="{{ 'Export' | t('export') }}">
+        </div>
+    </form>
+
+{% endblock %}
