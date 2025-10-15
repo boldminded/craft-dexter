@@ -1,32 +1,27 @@
 {
   "name": "boldminded/craft-dexter",
   "description": "Advanced Algolia or Meilisearch index management and search",
+  "version": "1.0.0",
   "minimum-stability": "dev",
   "prefer-stable": true,
   "type": "craft-plugin",
   "license": "proprietary",
   "support": {
     "email": "support@boldminded.com",
-    "issues": "https://github.com/git@github.com:litzinger/craft-dexter.git/issues?state=open",
-    "source": "https://github.com/git@github.com:litzinger/craft-dexter.git",
-    "docs": "https://github.com/git@github.com:litzinger/craft-dexter.git",
-    "rss": "https://github.com/git@github.com:litzinger/craft-dexter.git/releases.atom"
+    "issues": "https://github.com/git@github.com:boldminded/craft-dexter.git/issues?state=open",
+    "source": "https://github.com/git@github.com:boldminded/craft-dexter.git",
+    "docs": "https://github.com/git@github.com:boldminded/craft-dexter.git",
+    "rss": "https://github.com/git@github.com:boldminded/craft-dexter.git/releases.atom"
   },
   "require": {
     "php": ">=8.2",
-    "craftcms/cms": "^5.8.0",
-    "litzinger/dexter-core": "^1.0"
+    "boldminded/dexter-core": "^1.0",
+    "craftcms/cms": "^5.8.0"
   },
   "require-dev": {
     "craftcms/ecs": "dev-main",
     "craftcms/phpstan": "dev-main"
   },
-  "repositories": [
-    {
-      "type": "vcs",
-      "url": "git@github.com:litzinger/dexter-core.git"
-    }
-  ],
   "autoload": {
     "psr-4": {
       "boldminded\\dexter\\": "src/"
@@ -36,7 +31,7 @@
     "handle": "dexter",
     "name": "Dexter",
     "developer": "BoldMinded",
-    "documentationUrl": "https://github.com/git@github.com:litzinger/craft-dexter.git",
+    "documentationUrl": "https://github.com/git@github.com:boldminded/craft-dexter.git",
     "class": "boldminded\\dexter\\Dexter"
   },
   "scripts": {

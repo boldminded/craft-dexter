@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4ac7787c84654af572aec6460c2e9af2",
+    "content-hash": "05eb96fdf7c54c6fc1ae0b110b868768",
     "packages": [
         {
             "name": "adbario/php-dot-notation",
@@ -62,16 +62,16 @@
         },
         {
             "name": "algolia/algoliasearch-client-php",
-            "version": "4.30.0",
+            "version": "4.31.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/algolia/algoliasearch-client-php.git",
-                "reference": "cd70e2d8370c96b7208a2db91f74fc4c844d5b7c"
+                "reference": "2653451ae15582b680d7e92a77e90785742d212f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/algolia/algoliasearch-client-php/zipball/cd70e2d8370c96b7208a2db91f74fc4c844d5b7c",
-                "reference": "cd70e2d8370c96b7208a2db91f74fc4c844d5b7c",
+                "url": "https://api.github.com/repos/algolia/algoliasearch-client-php/zipball/2653451ae15582b680d7e92a77e90785742d212f",
+                "reference": "2653451ae15582b680d7e92a77e90785742d212f",
                 "shasum": ""
             },
             "require": {
@@ -123,9 +123,9 @@
             ],
             "support": {
                 "issues": "https://github.com/algolia/algoliasearch-client-php/issues",
-                "source": "https://github.com/algolia/algoliasearch-client-php/tree/4.30.0"
+                "source": "https://github.com/algolia/algoliasearch-client-php/tree/4.31.0"
             },
-            "time": "2025-09-26T15:10:19+00:00"
+            "time": "2025-10-07T10:23:47+00:00"
         },
         {
             "name": "bacon/bacon-qr-code",
@@ -180,6 +180,48 @@
                 "source": "https://github.com/Bacon/BaconQrCode/tree/2.0.8"
             },
             "time": "2022-12-07T17:46:57+00:00"
+        },
+        {
+            "name": "boldminded/dexter-core",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/boldminded/dexter-core.git",
+                "reference": "9f4ae049f68a8309276251e0717f8dcf11fbbc0a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/boldminded/dexter-core/zipball/9f4ae049f68a8309276251e0717f8dcf11fbbc0a",
+                "reference": "9f4ae049f68a8309276251e0717f8dcf11fbbc0a",
+                "shasum": ""
+            },
+            "require": {
+                "adbario/php-dot-notation": "^3.3",
+                "algolia/algoliasearch-client-php": "^4.0",
+                "league/mime-type-detection": "^1.16",
+                "league/pipeline": "^1.0",
+                "meilisearch/meilisearch-php": "^1.14",
+                "nyholm/psr7": "^1.0",
+                "openai-php/client": "^0.10.3",
+                "phpoffice/phpword": "^1.4",
+                "smalot/pdfparser": "^2.12",
+                "symfony/http-client": "^6.4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Litzinger\\DexterCore\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "commercial"
+            ],
+            "support": {
+                "issues": "https://github.com/boldminded/dexter-core/issues",
+                "source": "https://github.com/boldminded/dexter-core/tree/1.0.0"
+            },
+            "time": "2025-10-15T09:32:31+00:00"
         },
         {
             "name": "brick/math",
@@ -2125,47 +2167,6 @@
                 }
             ],
             "time": "2024-12-08T08:18:47+00:00"
-        },
-        {
-            "name": "litzinger/dexter-core",
-            "version": "1.0.29",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/litzinger/dexter-core.git",
-                "reference": "9634dac934a0cf06ecddb1d9d83657d917ff255b"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/litzinger/dexter-core/zipball/9634dac934a0cf06ecddb1d9d83657d917ff255b",
-                "reference": "9634dac934a0cf06ecddb1d9d83657d917ff255b",
-                "shasum": ""
-            },
-            "require": {
-                "adbario/php-dot-notation": "^3.3",
-                "algolia/algoliasearch-client-php": "^4.0",
-                "league/mime-type-detection": "^1.16",
-                "league/pipeline": "^1.0",
-                "meilisearch/meilisearch-php": "^1.14",
-                "nyholm/psr7": "^1.0",
-                "openai-php/client": "^0.10.3",
-                "phpoffice/phpword": "^1.4",
-                "smalot/pdfparser": "^2.12",
-                "symfony/http-client": "^6.4"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Litzinger\\DexterCore\\": "src/"
-                }
-            },
-            "license": [
-                "commercial"
-            ],
-            "support": {
-                "source": "https://github.com/litzinger/dexter-core/tree/1.0.29",
-                "issues": "https://github.com/litzinger/dexter-core/issues"
-            },
-            "time": "2025-10-01T14:34:23+00:00"
         },
         {
             "name": "masterminds/html5",
@@ -8654,12 +8655,12 @@
         }
     ],
     "aliases": [],
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "stability-flags": {
         "craftcms/ecs": 20,
         "craftcms/phpstan": 20
     },
-    "prefer-stable": false,
+    "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
         "php": ">=8.2"
