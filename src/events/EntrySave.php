@@ -14,9 +14,9 @@ use craft\base\Element;
 use craft\elements\Entry;
 use craft\events\ModelEvent;
 use craft\helpers\ElementHelper;
-use Litzinger\DexterCore\Service\Indexer\IndexEntryCommand;
-use Litzinger\DexterCore\Service\Indexer\IndexerResponse;
-use Litzinger\DexterCore\Service\Indexer\IndexProvider;
+use BoldMinded\DexterCore\Service\Indexer\IndexEntryCommand;
+use BoldMinded\DexterCore\Service\Indexer\IndexerResponse;
+use BoldMinded\DexterCore\Service\Indexer\IndexProvider;
 use yii\base\Event;
 
 class EntrySave

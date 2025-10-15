@@ -11,9 +11,9 @@ use boldminded\dexter\services\UserPipelines;
 use Craft;
 use craft\elements\User;
 use craft\queue\BaseJob;
-use Litzinger\DexterCore\Service\Indexer\IndexerResponse;
-use Litzinger\DexterCore\Service\Indexer\IndexProvider;
-use Litzinger\DexterCore\Service\Indexer\IndexUserCommand;
+use BoldMinded\DexterCore\Service\Indexer\IndexerResponse;
+use BoldMinded\DexterCore\Service\Indexer\IndexProvider;
+use BoldMinded\DexterCore\Service\Indexer\IndexUserCommand;
 use yii\queue\RetryableJobInterface;
 
 class IndexUserJob extends BaseJob implements RetryableJobInterface

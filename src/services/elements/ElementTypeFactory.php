@@ -2,7 +2,7 @@
 
 namespace boldminded\dexter\services\elements;
 
-use Litzinger\DexterCore\Contracts\ConfigInterface;
+use BoldMinded\DexterCore\Contracts\ConfigInterface;
 
 class ElementTypeFactory
 {

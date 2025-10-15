@@ -10,9 +10,9 @@ use boldminded\dexter\services\IndexableEntry;
 use boldminded\dexter\services\IndexerFactory;
 use Craft;
 use craft\elements\Entry;
-use Litzinger\DexterCore\Service\Indexer\IndexCommandCollection;
-use Litzinger\DexterCore\Service\Indexer\IndexEntryCommand;
-use Litzinger\DexterCore\Service\Indexer\ReIndexCommands;
+use BoldMinded\DexterCore\Service\Indexer\IndexCommandCollection;
+use BoldMinded\DexterCore\Service\Indexer\IndexEntryCommand;
+use BoldMinded\DexterCore\Service\Indexer\ReIndexCommands;
 
 class ReIndexCommandsSection implements ReIndexCommands
 {

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace boldminded\dexter\services\pipeline;
 
-use Litzinger\DexterCore\Contracts\ConfigInterface;
-use Litzinger\DexterCore\Contracts\IndexableInterface;
-use Litzinger\DexterCore\Service\StopWordRemover;
+use BoldMinded\DexterCore\Contracts\ConfigInterface;
+use BoldMinded\DexterCore\Contracts\IndexableInterface;
+use BoldMinded\DexterCore\Service\StopWordRemover;
 
 class FullTextPipeline
 {

@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace boldminded\dexter\services;
 
 use craft\elements\User as UserElement;
-use Litzinger\DexterCore\Contracts\CustomFieldInterface;
-use Litzinger\DexterCore\Contracts\IndexableInterface;
+use BoldMinded\DexterCore\Contracts\CustomFieldInterface;
+use BoldMinded\DexterCore\Contracts\IndexableInterface;
 
 class IndexableUser implements IndexableInterface
 {

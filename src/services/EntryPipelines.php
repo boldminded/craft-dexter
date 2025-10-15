@@ -9,7 +9,7 @@ use boldminded\dexter\services\pipeline\CategoryMenusPipeline;
 use boldminded\dexter\services\pipeline\CustomFieldsPipeline;
 use boldminded\dexter\services\pipeline\FullTextPipeline;
 use boldminded\dexter\services\pipeline\StatusCheckerPipeline;
-use Litzinger\DexterCore\Contracts\ConfigInterface;
+use BoldMinded\DexterCore\Contracts\ConfigInterface;
 
 class EntryPipelines
 {

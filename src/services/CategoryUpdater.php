@@ -7,7 +7,7 @@ namespace boldminded\dexter\services;
 use Craft;
 use craft\elements\Category;
 use craft\helpers\StringHelper;
-use Litzinger\DexterCore\Contracts\ConfigInterface;
+use BoldMinded\DexterCore\Contracts\ConfigInterface;
 
 class CategoryUpdater
 {

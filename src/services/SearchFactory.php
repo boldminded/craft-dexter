@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace boldminded\dexter\services;
 
 use Craft;
-use Litzinger\DexterCore\Service\Search\Algolia as AlgoliaSearch;
-use Litzinger\DexterCore\Service\Search\Meilisearch as MeilisearchSearch;
-use Litzinger\DexterCore\Service\Search\SearchProvider;
+use BoldMinded\DexterCore\Service\Search\Algolia as AlgoliaSearch;
+use BoldMinded\DexterCore\Service\Search\Meilisearch as MeilisearchSearch;
+use BoldMinded\DexterCore\Service\Search\SearchProvider;
 
 class SearchFactory
 {

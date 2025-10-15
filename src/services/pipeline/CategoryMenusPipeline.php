@@ -6,8 +6,8 @@ namespace boldminded\dexter\services\pipeline;
 
 use craft\elements\Category;
 use craft\fields\Categories;
-use Litzinger\DexterCore\Contracts\ConfigInterface;
-use Litzinger\DexterCore\Contracts\IndexableInterface;
+use BoldMinded\DexterCore\Contracts\ConfigInterface;
+use BoldMinded\DexterCore\Contracts\IndexableInterface;
 
 class CategoryMenusPipeline
 {

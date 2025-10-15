@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace boldminded\dexter\services;
 
-use Litzinger\DexterCore\Contracts\ConfigInterface;
+use BoldMinded\DexterCore\Contracts\ConfigInterface;
 use Meilisearch\Client;
 
 class MeilisearchClientFactory

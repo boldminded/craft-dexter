@@ -14,9 +14,9 @@ use craft\base\Element;
 use craft\elements\Category;
 use craft\events\ModelEvent;
 use craft\helpers\ElementHelper;
-use Litzinger\DexterCore\Service\Indexer\IndexCategoryCommand;
-use Litzinger\DexterCore\Service\Indexer\IndexerResponse;
-use Litzinger\DexterCore\Service\Indexer\IndexProvider;
+use BoldMinded\DexterCore\Service\Indexer\IndexCategoryCommand;
+use BoldMinded\DexterCore\Service\Indexer\IndexerResponse;
+use BoldMinded\DexterCore\Service\Indexer\IndexProvider;
 use yii\base\Event;
 
 class CategorySave

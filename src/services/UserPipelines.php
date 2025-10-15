@@ -6,7 +6,7 @@ namespace boldminded\dexter\services;
 
 use boldminded\dexter\services\pipeline\CustomFieldsPipeline;
 use boldminded\dexter\services\pipeline\FullTextPipeline;
-use Litzinger\DexterCore\Contracts\ConfigInterface;
+use BoldMinded\DexterCore\Contracts\ConfigInterface;
 
 class UserPipelines
 {

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace boldminded\dexter\services;
 
 use Algolia\AlgoliaSearch\Api\SearchClient as AlgoliaClient;
-use Litzinger\DexterCore\Contracts\ConfigInterface;
+use BoldMinded\DexterCore\Contracts\ConfigInterface;
 
 class AlgoliaClientFactory
 {

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace boldminded\dexter\services\elements;
 
-use Litzinger\DexterCore\Contracts\IndexableInterface;
+use BoldMinded\DexterCore\Contracts\IndexableInterface;
 
 interface ElementInterface
 {

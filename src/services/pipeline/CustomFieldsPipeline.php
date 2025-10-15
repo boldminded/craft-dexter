@@ -7,9 +7,9 @@ namespace boldminded\dexter\services\pipeline;
 use boldminded\dexter\services\elements\ElementTypeFactory;
 use boldminded\dexter\services\Filterable;
 use DateTimeInterface;
-use Litzinger\DexterCore\Contracts\ConfigInterface;
-use Litzinger\DexterCore\Contracts\IndexableInterface;
-use Litzinger\DexterCore\Service\FieldValue;
+use BoldMinded\DexterCore\Contracts\ConfigInterface;
+use BoldMinded\DexterCore\Contracts\IndexableInterface;
+use BoldMinded\DexterCore\Service\FieldValue;
 
 class CustomFieldsPipeline
 {

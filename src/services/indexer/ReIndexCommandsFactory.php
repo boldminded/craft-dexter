@@ -2,7 +2,7 @@
 
 namespace boldminded\dexter\services\indexer;
 
-use Litzinger\DexterCore\Service\Indexer\ReIndexCommands;
+use BoldMinded\DexterCore\Service\Indexer\ReIndexCommands;
 
 class ReIndexCommandsFactory
 {

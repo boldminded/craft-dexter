@@ -14,10 +14,10 @@ use boldminded\dexter\services\UserPipelines;
 use Craft;
 use craft\elements\Category;
 use craft\elements\User;
-use Litzinger\DexterCore\Service\Indexer\IndexCategoryCommand;
-use Litzinger\DexterCore\Service\Indexer\IndexCommandCollection;
-use Litzinger\DexterCore\Service\Indexer\IndexUserCommand;
-use Litzinger\DexterCore\Service\Indexer\ReIndexCommands;
+use BoldMinded\DexterCore\Service\Indexer\IndexCategoryCommand;
+use BoldMinded\DexterCore\Service\Indexer\IndexCommandCollection;
+use BoldMinded\DexterCore\Service\Indexer\IndexUserCommand;
+use BoldMinded\DexterCore\Service\Indexer\ReIndexCommands;
 
 class ReIndexCommandsCategoryGroup implements ReIndexCommands
 {

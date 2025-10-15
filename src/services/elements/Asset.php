@@ -10,8 +10,8 @@ use boldminded\dexter\services\IndexableFile;
 use craft\base\Element;
 use craft\elements\Asset as AssetElement;
 use League\Pipeline\PipelineBuilder;
-use Litzinger\DexterCore\Contracts\ConfigInterface;
-use Litzinger\DexterCore\Contracts\IndexableInterface;
+use BoldMinded\DexterCore\Contracts\ConfigInterface;
+use BoldMinded\DexterCore\Contracts\IndexableInterface;
 
 class Asset implements ElementInterface
 {

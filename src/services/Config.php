@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace boldminded\dexter\services;
 
 use Craft;
-use Litzinger\DexterCore\Contracts\ConfigInterface;
-use Litzinger\DexterCore\Service\Config as DexterConfig;
-use Litzinger\DexterCore\Service\ConfigFile;
+use BoldMinded\DexterCore\Contracts\ConfigInterface;
+use BoldMinded\DexterCore\Service\Config as DexterConfig;
+use BoldMinded\DexterCore\Service\ConfigFile;
 
 class Config implements ConfigInterface
 {

@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace boldminded\dexter\services;
 
 use Craft;
-use Litzinger\DexterCore\Service\Indexer\Algolia as AlgoliaIndexer;
-use Litzinger\DexterCore\Service\Indexer\Dummy as DummyIndexer;
-use Litzinger\DexterCore\Service\Indexer\IndexProvider;
-use Litzinger\DexterCore\Service\Indexer\Meilisearch as MeilisearchIndexer;
+use BoldMinded\DexterCore\Service\Indexer\Algolia as AlgoliaIndexer;
+use BoldMinded\DexterCore\Service\Indexer\Dummy as DummyIndexer;
+use BoldMinded\DexterCore\Service\Indexer\IndexProvider;
+use BoldMinded\DexterCore\Service\Indexer\Meilisearch as MeilisearchIndexer;
 
 class IndexerFactory
 {

@@ -7,9 +7,9 @@ namespace boldminded\dexter\queue;
 use boldminded\dexter\services\IndexerFactory;
 use Craft;
 use craft\queue\BaseJob;
-use Litzinger\DexterCore\Service\Indexer\DeleteFileCommand;
-use Litzinger\DexterCore\Service\Indexer\IndexerResponse;
-use Litzinger\DexterCore\Service\Indexer\IndexProvider;
+use BoldMinded\DexterCore\Service\Indexer\DeleteFileCommand;
+use BoldMinded\DexterCore\Service\Indexer\IndexerResponse;
+use BoldMinded\DexterCore\Service\Indexer\IndexProvider;
 use yii\queue\RetryableJobInterface;
 
 class DeleteFileJob extends BaseJob implements RetryableJobInterface

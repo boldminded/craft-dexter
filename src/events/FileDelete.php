@@ -10,9 +10,9 @@ use boldminded\dexter\services\IndexerFactory;
 use Craft;
 use craft\base\Element;
 use craft\elements\Asset as AssetElement;
-use Litzinger\DexterCore\Service\Indexer\DeleteFileCommand;
-use Litzinger\DexterCore\Service\Indexer\IndexerResponse;
-use Litzinger\DexterCore\Service\Indexer\IndexProvider;
+use BoldMinded\DexterCore\Service\Indexer\DeleteFileCommand;
+use BoldMinded\DexterCore\Service\Indexer\IndexerResponse;
+use BoldMinded\DexterCore\Service\Indexer\IndexProvider;
 use yii\base\Event;
 
 class FileDelete

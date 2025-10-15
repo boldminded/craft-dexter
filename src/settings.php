@@ -33,8 +33,7 @@ return [
     // Can be a string or a callable function. For example:
     /*
     'suffix' => function (...$args) {
-        $request = ee('publisher:Request');
-        $lang = $request->getCurrentLanguage();
+        @todo Determine the current language and return its short name.
         return '_' . $lang->getShortName();
     },
     */

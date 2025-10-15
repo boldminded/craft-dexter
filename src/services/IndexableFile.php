@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace boldminded\dexter\services;
 
 use craft\elements\Asset as AssetElement;
-use Litzinger\DexterCore\Contracts\CustomFieldInterface;
-use Litzinger\DexterCore\Contracts\IndexableFileInterface;
-use Litzinger\DexterCore\Contracts\IndexableInterface;
+use BoldMinded\DexterCore\Contracts\CustomFieldInterface;
+use BoldMinded\DexterCore\Contracts\IndexableFileInterface;
+use BoldMinded\DexterCore\Contracts\IndexableInterface;
 
 class IndexableFile implements IndexableInterface, IndexableFileInterface
 {

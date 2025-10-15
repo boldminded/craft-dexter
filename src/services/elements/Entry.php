@@ -9,8 +9,8 @@ use craft\elements\Entry as EntryElement;
 use craft\elements\User as UserElement;
 use craft\elements\Category as CategoryElement;
 use craft\fields\Entries as EntriesField;
-use Litzinger\DexterCore\Contracts\ConfigInterface;
-use Litzinger\DexterCore\Contracts\IndexableInterface;
+use BoldMinded\DexterCore\Contracts\ConfigInterface;
+use BoldMinded\DexterCore\Contracts\IndexableInterface;
 
 class Entry implements ElementInterface
 {

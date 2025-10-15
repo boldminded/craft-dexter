@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace boldminded\dexter\services;
 
 use craft\i18n\I18N;
-use Litzinger\DexterCore\Contracts\TranslatorInterface;
+use BoldMinded\DexterCore\Contracts\TranslatorInterface;
 
 class Translator implements TranslatorInterface
 {

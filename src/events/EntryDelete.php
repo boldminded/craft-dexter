@@ -10,9 +10,9 @@ use boldminded\dexter\services\IndexerFactory;
 use Craft;
 use craft\base\Element;
 use craft\elements\Entry;
-use Litzinger\DexterCore\Service\Indexer\DeleteEntryCommand;
-use Litzinger\DexterCore\Service\Indexer\IndexerResponse;
-use Litzinger\DexterCore\Service\Indexer\IndexProvider;
+use BoldMinded\DexterCore\Service\Indexer\DeleteEntryCommand;
+use BoldMinded\DexterCore\Service\Indexer\IndexerResponse;
+use BoldMinded\DexterCore\Service\Indexer\IndexProvider;
 use yii\base\Event;
 
 class EntryDelete

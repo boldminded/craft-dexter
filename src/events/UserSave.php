@@ -14,9 +14,9 @@ use craft\base\Element;
 use craft\elements\User;
 use craft\events\ModelEvent;
 use craft\helpers\ElementHelper;
-use Litzinger\DexterCore\Service\Indexer\IndexerResponse;
-use Litzinger\DexterCore\Service\Indexer\IndexProvider;
-use Litzinger\DexterCore\Service\Indexer\IndexUserCommand;
+use BoldMinded\DexterCore\Service\Indexer\IndexerResponse;
+use BoldMinded\DexterCore\Service\Indexer\IndexProvider;
+use BoldMinded\DexterCore\Service\Indexer\IndexUserCommand;
 use yii\base\Event;
 
 class UserSave

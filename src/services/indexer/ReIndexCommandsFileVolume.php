@@ -10,9 +10,9 @@ use boldminded\dexter\services\IndexableFile;
 use boldminded\dexter\services\IndexerFactory;
 use Craft;
 use craft\elements\Asset;
-use Litzinger\DexterCore\Service\Indexer\IndexCommandCollection;
-use Litzinger\DexterCore\Service\Indexer\IndexFileCommand;
-use Litzinger\DexterCore\Service\Indexer\ReIndexCommands;
+use BoldMinded\DexterCore\Service\Indexer\IndexCommandCollection;
+use BoldMinded\DexterCore\Service\Indexer\IndexFileCommand;
+use BoldMinded\DexterCore\Service\Indexer\ReIndexCommands;
 
 class ReIndexCommandsFileVolume implements ReIndexCommands
 {

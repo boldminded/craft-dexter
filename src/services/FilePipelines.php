@@ -10,7 +10,7 @@ use boldminded\dexter\services\pipeline\CustomFieldsPipeline;
 use boldminded\dexter\services\pipeline\FileDescribePipeline;
 use boldminded\dexter\services\pipeline\FilePipeline;
 use boldminded\dexter\services\pipeline\FullTextPipeline;
-use Litzinger\DexterCore\Contracts\ConfigInterface;
+use BoldMinded\DexterCore\Contracts\ConfigInterface;
 
 class FilePipelines
 {

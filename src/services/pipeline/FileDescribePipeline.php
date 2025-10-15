@@ -10,10 +10,10 @@ use boldminded\dexter\services\LoggerFactory;
 use boldminded\dexter\services\QueueFactory;
 use Craft;
 use craft\elements\Category;
-use Litzinger\DexterCore\Contracts\ConfigInterface;
-use Litzinger\DexterCore\Contracts\IndexableInterface;
-use Litzinger\DexterCore\Service\DocumentParsers\FileParserFactory;
-use Litzinger\DexterCore\Service\FileDescriber;
+use BoldMinded\DexterCore\Contracts\ConfigInterface;
+use BoldMinded\DexterCore\Contracts\IndexableInterface;
+use BoldMinded\DexterCore\Service\DocumentParsers\FileParserFactory;
+use BoldMinded\DexterCore\Service\FileDescriber;
 
 class FileDescribePipeline
 {

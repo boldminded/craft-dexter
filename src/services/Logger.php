@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace boldminded\dexter\services;
 
-use Litzinger\DexterCore\Contracts\LoggerInterface;
+use BoldMinded\DexterCore\Contracts\LoggerInterface;
 use yii\log\Logger as CraftLogger;
 
 class Logger implements LoggerInterface

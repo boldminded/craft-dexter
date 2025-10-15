@@ -7,8 +7,8 @@ namespace boldminded\dexter\services\elements;
 use boldminded\dexter\services\Filterable;
 use craft\base\Element;
 use craft\elements\Address as AddressElement;
-use Litzinger\DexterCore\Contracts\ConfigInterface;
-use Litzinger\DexterCore\Contracts\IndexableInterface;
+use BoldMinded\DexterCore\Contracts\ConfigInterface;
+use BoldMinded\DexterCore\Contracts\IndexableInterface;
 
 class Address implements ElementInterface
 {
