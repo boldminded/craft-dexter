@@ -1,7 +1,7 @@
 {
   "name": "boldminded/craft-dexter",
   "description": "Advanced Algolia or Meilisearch index management and search",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "minimum-stability": "dev",
   "prefer-stable": true,
   "type": "craft-plugin",
