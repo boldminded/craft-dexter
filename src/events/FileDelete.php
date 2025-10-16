@@ -7,6 +7,7 @@ namespace boldminded\dexter\events;
 use boldminded\dexter\queue\DeleteFileJob;
 use boldminded\dexter\services\Config;
 use boldminded\dexter\services\IndexerFactory;
+use boldminded\dexter\services\Suffix;
 use Craft;
 use craft\base\Element;
 use craft\elements\Asset as AssetElement;
@@ -67,7 +68,7 @@ class FileDelete
         }
 
         $command = new DeleteFileCommand(
-            indexName: $indexName,
+            indexName: $indexName . Suffix::get($file),
             id: $file->uid,
             title: $file->title ?? '',
             queueJobName: DeleteFileJob::class,

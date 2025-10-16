@@ -7,6 +7,7 @@ use boldminded\dexter\queue\IndexUserJob;
 use boldminded\dexter\services\Config;
 use boldminded\dexter\services\IndexableUser;
 use boldminded\dexter\services\IndexerFactory;
+use boldminded\dexter\services\Suffix;
 use boldminded\dexter\services\UserPipelines;
 use Craft;
 use craft\elements\User;
@@ -71,7 +72,7 @@ class ReIndexCommandsUserGroup implements ReIndexCommands
 
         foreach ($users as $user) {
             $command = new IndexUserCommand(
-                indexName: $this->indexName,
+                indexName: $this->indexName . Suffix::get($user),
                 indexable: new IndexableUser($user),
                 config: $config,
                 pipelines: UserPipelines::getPipelines($config),

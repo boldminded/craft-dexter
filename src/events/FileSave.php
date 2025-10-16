@@ -9,6 +9,7 @@ use boldminded\dexter\services\Config;
 use boldminded\dexter\services\FilePipelines;
 use boldminded\dexter\services\IndexableFile;
 use boldminded\dexter\services\IndexerFactory;
+use boldminded\dexter\services\Suffix;
 use Craft;
 use craft\base\Element;
 use craft\elements\Asset as AssetElement;
@@ -76,7 +77,7 @@ class FileSave
         }
 
         $command = new IndexFileCommand(
-            indexName: $indexName,
+            indexName: $indexName . Suffix::get($file),
             indexable: new IndexableFile($file),
             config: $config,
             pipelines: FilePipelines::getPipelines($config),

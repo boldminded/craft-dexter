@@ -8,6 +8,7 @@ use boldminded\dexter\services\Config;
 use boldminded\dexter\services\EntryPipelines;
 use boldminded\dexter\services\IndexableEntry;
 use boldminded\dexter\services\IndexerFactory;
+use boldminded\dexter\services\Suffix;
 use Craft;
 use craft\elements\Entry;
 use BoldMinded\DexterCore\Service\Indexer\IndexCommandCollection;
@@ -71,7 +72,7 @@ class ReIndexCommandsSection implements ReIndexCommands
 
         foreach ($entries as $entry) {
             $command = new IndexEntryCommand(
-                indexName: $this->indexName,
+                indexName: $this->indexName . Suffix::get($entry),
                 indexable: new IndexableEntry($entry),
                 config: $config,
                 pipelines: EntryPipelines::getPipelines($config),

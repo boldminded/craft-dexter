@@ -7,6 +7,7 @@ namespace boldminded\dexter\events;
 use boldminded\dexter\queue\DeleteUserJob;
 use boldminded\dexter\services\Config;
 use boldminded\dexter\services\IndexerFactory;
+use boldminded\dexter\services\Suffix;
 use Craft;
 use craft\base\Element;
 use craft\elements\User;
@@ -77,7 +78,7 @@ class UserDelete
         }
 
         $command = new DeleteFileCommand(
-            indexName: $indexName,
+            indexName: $indexName . Suffix::get($user),
             id: $user->uid,
             title: $user->username ?? '',
             queueJobName: DeleteUserJob::class,

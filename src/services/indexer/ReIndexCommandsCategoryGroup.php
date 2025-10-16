@@ -10,6 +10,7 @@ use boldminded\dexter\services\Config;
 use boldminded\dexter\services\IndexableCategory;
 use boldminded\dexter\services\IndexableUser;
 use boldminded\dexter\services\IndexerFactory;
+use boldminded\dexter\services\Suffix;
 use boldminded\dexter\services\UserPipelines;
 use Craft;
 use craft\elements\Category;
@@ -76,7 +77,7 @@ class ReIndexCommandsCategoryGroup implements ReIndexCommands
 
         foreach ($categories as $category) {
             $command = new IndexCategoryCommand(
-                indexName: $this->indexName,
+                indexName: $this->indexName . Suffix::get($category),
                 indexable: new IndexableCategory($category),
                 config: $config,
                 pipelines: CategoryPipelines::getPipelines($config),

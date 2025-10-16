@@ -31,13 +31,16 @@ return [
     // Add a suffix to the end of all indices. Useful for multilingual sites.
     // If you are using Publisher this value should be left blanks as it will automatically be updated.
     // Can be a string or a callable function. For example:
-    /*
-    'suffix' => function (...$args) {
-        @todo Determine the current language and return its short name.
-        return '_' . $lang->getShortName();
-    },
-    */
-    'suffix' => '',
+    //'suffix' => function (...$args) {
+    //    //$sites = Craft::$app->sites->getAllSites();
+    //    //
+    //    //if (count($sites) > 1) {
+    //    //    $currentSiteHandle = Craft::$app->getSites()->getCurrentSite()->handle;
+    //    //    return '_' . $currentSiteHandle;
+    //    //}
+    //
+    //    return '';
+    //},
 
     // Add the group name handle to be used to construct a menu a hierarchical menus, specifically
     // designed to render output necessary for Algolia's React HierarchicalMenu component

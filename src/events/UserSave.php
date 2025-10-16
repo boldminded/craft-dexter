@@ -8,6 +8,7 @@ use boldminded\dexter\queue\IndexUserJob;
 use boldminded\dexter\services\Config;
 use boldminded\dexter\services\IndexableUser;
 use boldminded\dexter\services\IndexerFactory;
+use boldminded\dexter\services\Suffix;
 use boldminded\dexter\services\UserPipelines;
 use Craft;
 use craft\base\Element;
@@ -80,7 +81,7 @@ class UserSave
         }
 
         $command = new IndexUserCommand(
-            indexName: $indexName,
+            indexName: $indexName . Suffix::get($user),
             indexable: new IndexableUser($user),
             config: $config,
             pipelines: UserPipelines::getPipelines($config),

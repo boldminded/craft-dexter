@@ -9,6 +9,7 @@ use boldminded\dexter\services\Config;
 use boldminded\dexter\services\EntryPipelines;
 use boldminded\dexter\services\IndexableEntry;
 use boldminded\dexter\services\IndexerFactory;
+use boldminded\dexter\services\Suffix;
 use Craft;
 use craft\base\Element;
 use craft\elements\Entry;
@@ -77,7 +78,7 @@ class EntrySave
         }
 
         $command = new IndexEntryCommand(
-            indexName: $indexName,
+            indexName: $indexName . Suffix::get($entry),
             indexable: new IndexableEntry($entry),
             config: $config,
             pipelines: EntryPipelines::getPipelines($config),

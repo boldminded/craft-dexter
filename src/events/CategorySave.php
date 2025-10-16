@@ -9,6 +9,7 @@ use boldminded\dexter\services\CategoryPipelines;
 use boldminded\dexter\services\Config;
 use boldminded\dexter\services\IndexableCategory;
 use boldminded\dexter\services\IndexerFactory;
+use boldminded\dexter\services\Suffix;
 use Craft;
 use craft\base\Element;
 use craft\elements\Category;
@@ -77,7 +78,7 @@ class CategorySave
         }
 
         $command = new IndexCategoryCommand(
-            indexName: $indexName,
+            indexName: $indexName . Suffix::get($category),
             indexable: new IndexableCategory($category),
             config: $config,
             pipelines: CategoryPipelines::getPipelines($config),

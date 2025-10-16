@@ -8,6 +8,7 @@ use boldminded\dexter\services\Config;
 use boldminded\dexter\services\FilePipelines;
 use boldminded\dexter\services\IndexableFile;
 use boldminded\dexter\services\IndexerFactory;
+use boldminded\dexter\services\Suffix;
 use Craft;
 use craft\elements\Asset;
 use BoldMinded\DexterCore\Service\Indexer\IndexCommandCollection;
@@ -70,7 +71,7 @@ class ReIndexCommandsFileVolume implements ReIndexCommands
 
         foreach ($files as $file) {
             $command = new IndexFileCommand(
-                indexName: $this->indexName,
+                indexName: $this->indexName . Suffix::get($file),
                 indexable: new IndexableFile($file),
                 config: $config,
                 pipelines: FilePipelines::getPipelines($config),

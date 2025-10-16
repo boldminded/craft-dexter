@@ -7,6 +7,7 @@ namespace boldminded\dexter\events;
 use boldminded\dexter\queue\DeleteEntryJob;
 use boldminded\dexter\services\Config;
 use boldminded\dexter\services\IndexerFactory;
+use boldminded\dexter\services\Suffix;
 use Craft;
 use craft\base\Element;
 use craft\elements\Entry;
@@ -65,7 +66,7 @@ class EntryDelete
         }
 
         $command = new DeleteEntryCommand(
-            indexName: $indexName,
+            indexName: $indexName . Suffix::get($entry),
             id: $entry->uid,
             title: $entry->title ?? '',
             queueJobName: DeleteEntryJob::class,
