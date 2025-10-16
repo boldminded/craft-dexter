@@ -24,7 +24,7 @@ class BaseController extends Controller
             '' => ['title' => Craft::t('dexter', 'Dashboard')],
             'import-settings' => ['title' => Craft::t('dexter', 'Import Settings')],
             'export-settings' => ['title' => Craft::t('dexter', 'Export Settings')],
-            'https://docs.boldminded.com/dexter-craft' => ['title' => Craft::t('dexter', 'Documentation'), 'external' => true],
+            'https://docs.boldminded.com/dexter/docs-craft' => ['title' => Craft::t('dexter', 'Documentation'), 'external' => true],
         ];
     }
 }

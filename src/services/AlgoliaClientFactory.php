@@ -15,7 +15,9 @@ class AlgoliaClientFactory
         $apiKey = $config->get('algolia.apiKey');
 
         if (!$appId || !$apiKey) {
-            throw new \Exception('Algolia appId or appKey not configured.');
+            throw new \Exception(
+                'Algolia appId or appKey not configured. Please check your config/dexter.php file.'
+            );
         }
 
         return AlgoliaClient::create($appId, $apiKey);

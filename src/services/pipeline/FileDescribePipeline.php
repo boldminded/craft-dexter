@@ -57,6 +57,7 @@ class FileDescribePipeline
 
         if ($this->fileDescriber->isJson($description)) {
             $descriptionData = json_decode($description, true);
+            $newAltText = $descriptionData['altText'] ?? ''; // @todo
             $newDescription = $descriptionData['description'] ?? '';
             $newCategories = $descriptionData['tags'] ?? [];
         } else {

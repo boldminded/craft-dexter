@@ -15,7 +15,9 @@ class MeilisearchClientFactory
         $url = $config->get('meilisearch.url');
 
         if (!$appKey || !$url) {
-            throw new \Exception('Meilisearch appKey or url not configured.');
+            throw new \Exception(
+                'Meilisearch appKey or url not configured. Please check your config/dexter.php file.'
+            );
         }
 
         return (new Client($url, $appKey));
