@@ -36,7 +36,7 @@ class ReIndexCommandsFileVolume implements ReIndexCommands
 
         $query = Asset::find()
             ->volume($this->sourceId)
-            ->siteId(['default', $siteId]);
+            ->siteId($siteId);
 
         if ($offset !== null && $offset !== '') {
             $query->offset((int)$offset);

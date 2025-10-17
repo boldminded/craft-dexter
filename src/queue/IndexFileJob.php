@@ -33,7 +33,7 @@ class IndexFileJob extends BaseJob implements RetryableJobInterface
             ->siteId($siteId)
             ->one();
 
-        $volumeHandle = $file?->volume?->fsHandle;
+        $volumeHandle = $file?->volume?->handle;
 
         if (!$volumeHandle) {
             return;
