@@ -3,6 +3,7 @@
 namespace boldminded\dexter\controllers;
 
 use boldminded\dexter\services\IndexerFactory;
+use Craft;
 use craft\web\View;
 use yii\web\Response;
 
@@ -17,7 +18,11 @@ class DashboardController extends BaseController
         $vars = [
             'title' => 'Dexter',
             'navItems' => $this->getNav(),
-            'choices' => IndexChoices::asOptionGroups(),
+            'siteChoices' => array_map(fn ($site) => [
+                'label' => $site->name,
+                'value' => $site->id,
+            ], Craft::$app->sites->getAllSites()),
+            'indexChoices' => IndexChoices::asOptionGroups(),
             'indices' => $indexer->list(),
             'providerName' => $this->config->getProviderName(),
             'selectedNavItem' => '',

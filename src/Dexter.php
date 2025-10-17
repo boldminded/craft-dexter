@@ -9,6 +9,7 @@ use boldminded\dexter\events\FileDelete;
 use boldminded\dexter\events\FileSave;
 use boldminded\dexter\events\EntrySave;
 use boldminded\dexter\events\Navigation;
+use boldminded\dexter\events\UpdateConfigEvent;
 use boldminded\dexter\events\UserDelete;
 use boldminded\dexter\events\UserSave;
 use boldminded\dexter\tags\Dexter as DexterTag;
@@ -53,6 +54,7 @@ class Dexter extends Plugin
         (new FileDelete)->subscribe();
         (new UserSave)->subscribe();
         (new UserDelete)->subscribe();
+        (new UpdateConfigEvent)->subscribe();
     }
 
     public function getCpNavItem(): ?array

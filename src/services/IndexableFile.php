@@ -41,7 +41,7 @@ class IndexableFile implements IndexableInterface, IndexableFileInterface
     {
         return array_merge([
             'id' => $this->file->id,
-            'uid' => $this->file->uid,
+            'uid' => $this->file->getCanonicalUid(),
             'title' => $this->file->title,
             'slug' => $this->file->slug,
             'dateCreated' => $this->file->dateCreated,
@@ -55,12 +55,12 @@ class IndexableFile implements IndexableInterface, IndexableFileInterface
 
     public function getId(): int|string
     {
-        return $this->file->uid;
+        return $this->file->getCanonicalUid();
     }
 
     public function getUniqueId(): string
     {
-        return 'file_' . $this->file->uid;
+        return 'file_' . $this->file->siteId . '_' . $this->file->getCanonicalUid();
     }
 
     public function getRelated(string $type): array

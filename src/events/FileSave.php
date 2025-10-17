@@ -9,7 +9,6 @@ use boldminded\dexter\services\Config;
 use boldminded\dexter\services\FilePipelines;
 use boldminded\dexter\services\IndexableFile;
 use boldminded\dexter\services\IndexerFactory;
-use boldminded\dexter\services\Suffix;
 use Craft;
 use craft\base\Element;
 use craft\elements\Asset as AssetElement;
@@ -69,6 +68,16 @@ class FileSave
         }
 
         $config = new Config();
+
+        Event::trigger(
+            UpdateConfigEvent::class,
+            UpdateConfigEvent::EVENT_DEXTER_UPDATE_CONFIG,
+            new UpdateConfigEvent([
+                'config' => $config,
+                'element' => $file,
+            ])
+        );
+
         $indices = $config->get('indices.files');
         $indexName = $indices[$volumeHandle] ?? null;
 
@@ -77,7 +86,7 @@ class FileSave
         }
 
         $command = new IndexFileCommand(
-            indexName: $indexName . Suffix::get($file),
+            indexName: $indexName,
             indexable: new IndexableFile($file),
             config: $config,
             pipelines: FilePipelines::getPipelines($config),

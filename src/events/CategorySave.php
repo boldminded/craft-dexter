@@ -9,7 +9,6 @@ use boldminded\dexter\services\CategoryPipelines;
 use boldminded\dexter\services\Config;
 use boldminded\dexter\services\IndexableCategory;
 use boldminded\dexter\services\IndexerFactory;
-use boldminded\dexter\services\Suffix;
 use Craft;
 use craft\base\Element;
 use craft\elements\Category;
@@ -70,6 +69,16 @@ class CategorySave
         }
 
         $config = new Config();
+
+        Event::trigger(
+            UpdateConfigEvent::class,
+            UpdateConfigEvent::EVENT_DEXTER_UPDATE_CONFIG,
+            new UpdateConfigEvent([
+                'config' => $config,
+                'element' => $category,
+            ])
+        );
+
         $indices = $config->get('indices.categories');
         $indexName = $indices[$groupHandle] ?? null;
 
@@ -78,7 +87,7 @@ class CategorySave
         }
 
         $command = new IndexCategoryCommand(
-            indexName: $indexName . Suffix::get($category),
+            indexName: $indexName,
             indexable: new IndexableCategory($category),
             config: $config,
             pipelines: CategoryPipelines::getPipelines($config),

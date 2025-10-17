@@ -39,7 +39,7 @@ class IndexableCategory implements IndexableInterface
     {
         return array_merge([
             'id' => $this->category->id,
-            'uid' => $this->category->uid,
+            'uid' => $this->category->getCanonicalUid(),
             'title' => $this->category->title,
             'slug' => $this->category->slug,
             'dateCreated' => $this->category->dateCreated,
@@ -59,7 +59,7 @@ class IndexableCategory implements IndexableInterface
 
     public function getUniqueId(): string
     {
-        return 'category_' . $this->category->entry_id;
+        return 'category_' . $this->category->siteId . '_' . $this->category->getCanonicalUid();
     }
 
     public function getRelated(string $type): array

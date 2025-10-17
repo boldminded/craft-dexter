@@ -7,7 +7,6 @@ namespace boldminded\dexter\events;
 use boldminded\dexter\queue\DeleteCategoryJob;
 use boldminded\dexter\services\Config;
 use boldminded\dexter\services\IndexerFactory;
-use boldminded\dexter\services\Suffix;
 use Craft;
 use craft\base\Element;
 use craft\elements\Category;
@@ -67,6 +66,16 @@ class CategoryDelete
         }
 
         $config = new Config();
+
+        Event::trigger(
+            UpdateConfigEvent::class,
+            UpdateConfigEvent::EVENT_DEXTER_UPDATE_CONFIG,
+            new UpdateConfigEvent([
+                'config' => $config,
+                'element' => $category,
+            ])
+        );
+
         $indices = $config->get('indices.categories');
         $indexName = $indices[$groupHandle] ?? null;
 
@@ -75,7 +84,7 @@ class CategoryDelete
         }
 
         $command = new DeleteCategoryCommand(
-            indexName: $indexName . Suffix::get($category),
+            indexName: $indexName,
             id: $category->uid,
             title: $category->title ?? '',
             queueJobName: DeleteCategoryJob::class,

@@ -3,22 +3,18 @@
 namespace boldminded\dexter\services\indexer;
 
 
+use boldminded\dexter\events\UpdateConfigEvent;
 use boldminded\dexter\queue\IndexCategoryJob;
-use boldminded\dexter\queue\IndexUserJob;
 use boldminded\dexter\services\CategoryPipelines;
 use boldminded\dexter\services\Config;
 use boldminded\dexter\services\IndexableCategory;
-use boldminded\dexter\services\IndexableUser;
 use boldminded\dexter\services\IndexerFactory;
-use boldminded\dexter\services\Suffix;
-use boldminded\dexter\services\UserPipelines;
 use Craft;
 use craft\elements\Category;
-use craft\elements\User;
 use BoldMinded\DexterCore\Service\Indexer\IndexCategoryCommand;
 use BoldMinded\DexterCore\Service\Indexer\IndexCommandCollection;
-use BoldMinded\DexterCore\Service\Indexer\IndexUserCommand;
 use BoldMinded\DexterCore\Service\Indexer\ReIndexCommands;
+use yii\base\Event;
 
 class ReIndexCommandsCategoryGroup implements ReIndexCommands
 {
@@ -32,15 +28,16 @@ class ReIndexCommandsCategoryGroup implements ReIndexCommands
 
     public function getCommandCollection(): IndexCommandCollection
     {
-        // Build the Entry query
-        $query = Category::find()
-            ->group($this->sourceId)
-            ->siteId(Craft::$app->getSites()->getCurrentSite()->id);
-
         $request = Craft::$app->getRequest();
         $offset  = $request->getBodyParam('offset');
         $limit   = $request->getBodyParam('limit');
         $clear   = $request->getBodyParam('clear');
+        $siteId  = $request->getBodyParam('siteId') ?: Craft::$app->getSites()->getCurrentSite()->id;
+
+        // Build the Entry query
+        $query = Category::find()
+            ->group($this->sourceId)
+            ->siteId($siteId);
 
         if ($offset !== null && $offset !== '') {
             $query->offset((int)$offset);
@@ -52,6 +49,16 @@ class ReIndexCommandsCategoryGroup implements ReIndexCommands
         $categories = $query->all();
 
         $config = new Config();
+
+        Event::trigger(
+            UpdateConfigEvent::class,
+            UpdateConfigEvent::EVENT_DEXTER_UPDATE_CONFIG,
+            new UpdateConfigEvent([
+                'config' => $config,
+                'siteId' => $siteId,
+            ])
+        );
+
         $indices = $config->get('indices.categories');
         $indexer = IndexerFactory::create();
         $this->indexName = $indices[$this->sourceId] ?? '[unknown]';
@@ -77,7 +84,7 @@ class ReIndexCommandsCategoryGroup implements ReIndexCommands
 
         foreach ($categories as $category) {
             $command = new IndexCategoryCommand(
-                indexName: $this->indexName . Suffix::get($category),
+                indexName: $this->indexName,
                 indexable: new IndexableCategory($category),
                 config: $config,
                 pipelines: CategoryPipelines::getPipelines($config),

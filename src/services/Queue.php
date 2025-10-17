@@ -15,6 +15,14 @@ class Queue implements QueueInterface
 
     public function push(string $job, array $data): void
     {
+        $payload = $data['payload'] ?? [];
+
+        // We're not passing the full object to the queue, just the necessary data to find it again when the job is
+        // executed, but we also need the siteId to find the correct instance of an item.
+        if (!isset($payload['siteId'])) {
+            $payload['siteId'] = $data['siteId'] ?? null;
+        }
+
         $this->queue
             ->ttr(300)
             ->delay(1)
@@ -22,7 +30,7 @@ class Queue implements QueueInterface
             ->push(new $job([
                 'uid' => $data['uid'] ?? null,
                 'title' => $data['title'] ?? null,
-                'payload' => $data['payload'] ?? []
+                'payload' => $payload
             ]))
         ;
     }

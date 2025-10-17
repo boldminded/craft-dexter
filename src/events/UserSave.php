@@ -8,7 +8,6 @@ use boldminded\dexter\queue\IndexUserJob;
 use boldminded\dexter\services\Config;
 use boldminded\dexter\services\IndexableUser;
 use boldminded\dexter\services\IndexerFactory;
-use boldminded\dexter\services\Suffix;
 use boldminded\dexter\services\UserPipelines;
 use Craft;
 use craft\base\Element;
@@ -70,6 +69,16 @@ class UserSave
         }
 
         $config = new Config();
+
+        Event::trigger(
+            UpdateConfigEvent::class,
+            UpdateConfigEvent::EVENT_DEXTER_UPDATE_CONFIG,
+            new UpdateConfigEvent([
+                'config' => $config,
+                'element' => $user,
+            ])
+        );
+
         $indices = $config->get('indices.users');
 
         $indexName = array_reduce($userGroups, function ($carry, $groupHandle) use ($indices) {
@@ -81,7 +90,7 @@ class UserSave
         }
 
         $command = new IndexUserCommand(
-            indexName: $indexName . Suffix::get($user),
+            indexName: $indexName,
             indexable: new IndexableUser($user),
             config: $config,
             pipelines: UserPipelines::getPipelines($config),

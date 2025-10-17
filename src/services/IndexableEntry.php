@@ -39,7 +39,7 @@ class IndexableEntry implements IndexableInterface
     {
         return array_merge([
             'id' => $this->entry->id,
-            'uid' => $this->entry->uid,
+            'uid' => $this->entry->getCanonicalUid(),
             'title' => $this->entry->title,
             'slug' => $this->entry->slug,
             'postDate' => $this->entry->postDate,
@@ -62,7 +62,7 @@ class IndexableEntry implements IndexableInterface
 
     public function getUniqueId(): string
     {
-        return 'entry_' . $this->entry->entry_id;
+        return 'entry_' . $this->entry->siteId . '_' . $this->entry->getCanonicalUid();
     }
 
     public function getRelated(string $type): array

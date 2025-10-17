@@ -9,7 +9,11 @@ use Craft;
 
 class ReIndex
 {
-    public function process(string $indexSource): bool
+    public function process(
+        string $indexSource,
+        int|null $siteId = null,
+        bool $clear = false
+    ): bool
     {
         if ($indexSource === '') {
             Craft::$app
@@ -23,12 +27,18 @@ class ReIndex
         }
 
         $config = new Config();
+
         $factory = (new ReIndexCommandsFactory())->create($indexSource);
         $commands = $factory->getCommandCollection();
         $totalObjects = $commands->count();
 
         $indexer = IndexerFactory::create();
         $indexName = $factory->getIndexName();
+
+        if ($clear) {
+            $indexer->clear($indexName);
+        }
+
         $result = $indexer->bulk($commands);
 
         $alertMessage = $factory->getAlerts();

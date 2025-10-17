@@ -7,35 +7,40 @@ use craft\base\Element;
 
 class Suffix
 {
-    public static function get(Element|string $element): string
+    public static function getByElement(Element $element): string
     {
-        return self::getSite();
-
         try {
-            if (is_string($element)) {
-                $element = Craft::$app->getElements()->getElementByUid($element);
+            $handle = Craft::$app->getSites()->getSiteById($element->siteId)->handle;
+
+            if ($handle !== 'default') {
+                return '_' . $handle;
             }
 
-            return '_' . Craft::$app->getSites()->getSiteById($element->siteId)->handle;
+            return '';
         } catch (\Throwable $e) {
             return '';
         }
     }
 
-    public static function getSite(): ?string
+    public static function getByUid(string $uid): string
     {
         try {
-            $request = Craft::$app->getRequest();
-            $siteHandle = $request->getQueryParam('site');
+            $element = Craft::$app->getElements()->getElementByUid($uid);
 
-            if ($siteHandle && $siteHandle !== 'default') {
-                return '_' . $siteHandle;
-            }
-
+            return self::getByElement($element);
+        } catch (\Throwable $e) {
             return '';
-
-       } catch (\Throwable $e) {
-            return null;
         }
+    }
+
+    public static function getBySiteId(int $siteId): string
+    {
+        $handle = Craft::$app->getSites()->getSiteById($siteId)->handle;
+
+        if ($handle !== 'default') {
+            return '_' . $handle;
+        }
+
+        return '';
     }
 }

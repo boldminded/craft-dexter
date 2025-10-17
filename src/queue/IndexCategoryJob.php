@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace boldminded\dexter\queue;
 
+use boldminded\dexter\events\UpdateConfigEvent;
 use boldminded\dexter\services\CategoryPipelines;
 use boldminded\dexter\services\Config;
 use boldminded\dexter\services\IndexableCategory;
@@ -14,6 +15,7 @@ use craft\queue\BaseJob;
 use BoldMinded\DexterCore\Service\Indexer\IndexCategoryCommand;
 use BoldMinded\DexterCore\Service\Indexer\IndexerResponse;
 use BoldMinded\DexterCore\Service\Indexer\IndexProvider;
+use yii\base\Event;
 use yii\queue\RetryableJobInterface;
 
 class IndexCategoryJob extends BaseJob implements RetryableJobInterface
@@ -24,8 +26,11 @@ class IndexCategoryJob extends BaseJob implements RetryableJobInterface
 
     public function execute($queue): void
     {
+        $siteId = $this->payload['siteId'] ?? null;
+
         $category = Category::find()
             ->uid($this->uid)
+            ->siteId($siteId)
             ->one();
 
         $categoryGroup = $category->group?->handle;
@@ -35,6 +40,16 @@ class IndexCategoryJob extends BaseJob implements RetryableJobInterface
         }
 
         $config = new Config();
+
+        Event::trigger(
+            UpdateConfigEvent::class,
+            UpdateConfigEvent::EVENT_DEXTER_UPDATE_CONFIG,
+            new UpdateConfigEvent([
+                'config' => $config,
+                'element' => $category,
+            ])
+        );
+
         $indices = $config->get('indices.categories');
         $indexName = $indices[$categoryGroup] ?? null;
 

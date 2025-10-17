@@ -40,7 +40,7 @@ class IndexableUser implements IndexableInterface
     {
         return array_merge([
             'id' => $this->user->id,
-            'uid' => $this->user->uid,
+            'uid' => $this->user->getCanonicalUid(),
             'title' => $this->user->username,
             'username' => $this->user->username,
             'firstName' => $this->user->firstName,
@@ -57,12 +57,12 @@ class IndexableUser implements IndexableInterface
 
     public function getId(): int|string
     {
-        return $this->user->uid;
+        return $this->user->getCanonicalUid();
     }
 
     public function getUniqueId(): string
     {
-        return 'user_' . $this->user->uid;
+        return 'user_' . $this->user->siteId . '_' . $this->user->getCanonicalUid();
     }
 
     public function getRelated(string $type): array

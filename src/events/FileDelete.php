@@ -7,7 +7,6 @@ namespace boldminded\dexter\events;
 use boldminded\dexter\queue\DeleteFileJob;
 use boldminded\dexter\services\Config;
 use boldminded\dexter\services\IndexerFactory;
-use boldminded\dexter\services\Suffix;
 use Craft;
 use craft\base\Element;
 use craft\elements\Asset as AssetElement;
@@ -60,6 +59,16 @@ class FileDelete
         }
 
         $config = new Config();
+
+        Event::trigger(
+            UpdateConfigEvent::class,
+            UpdateConfigEvent::EVENT_DEXTER_UPDATE_CONFIG,
+            new UpdateConfigEvent([
+                'config' => $config,
+                'element' => $file,
+            ])
+        );
+
         $indices = $config->get('indices.files');
         $indexName = $indices[$volumeHandle] ?? null;
 
@@ -68,7 +77,7 @@ class FileDelete
         }
 
         $command = new DeleteFileCommand(
-            indexName: $indexName . Suffix::get($file),
+            indexName: $indexName,
             id: $file->uid,
             title: $file->title ?? '',
             queueJobName: DeleteFileJob::class,

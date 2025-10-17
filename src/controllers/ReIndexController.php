@@ -14,13 +14,14 @@ class ReIndexController extends BaseController
         $request = Craft::$app->getRequest();
         $data = $request->getBodyParams();
         $indexSource = $data['indexSource'] ?? '';
+        $siteId = $data['siteId'] ? (int) $data['siteId'] : null;
         $clear = $data['clear'] ?? false;
 
         if (!$indexSource) {
             $this->redirect('dexter');
         }
 
-        (new ReIndex)->process($indexSource, $clear);
+        (new ReIndex)->process($indexSource, $siteId, $clear);
 
         $this->redirect('dexter');
     }

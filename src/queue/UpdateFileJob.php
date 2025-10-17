@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace boldminded\dexter\queue;
 
+use boldminded\dexter\events\UpdateConfigEvent;
 use boldminded\dexter\services\Config;
 use boldminded\dexter\services\FileUpdater;
 use boldminded\dexter\services\IndexableFile;
 use Craft;
 use craft\elements\Asset;
 use craft\queue\BaseJob;
+use yii\base\Event;
 use yii\queue\RetryableJobInterface;
 
 class UpdateFileJob extends BaseJob implements RetryableJobInterface
@@ -20,8 +22,11 @@ class UpdateFileJob extends BaseJob implements RetryableJobInterface
 
     public function execute($queue): void
     {
+        $siteId = $this->payload['siteId'] ?? null;
+
         $file = Asset::find()
             ->uid($this->uid)
+            ->siteId($siteId)
             ->one();
 
         if (!$file) {
@@ -30,6 +35,15 @@ class UpdateFileJob extends BaseJob implements RetryableJobInterface
 
         $indexable = new IndexableFile($file);
         $config = new Config();
+
+        Event::trigger(
+            UpdateConfigEvent::class,
+            UpdateConfigEvent::EVENT_DEXTER_UPDATE_CONFIG,
+            new UpdateConfigEvent([
+                'config' => $config,
+                'element' => $file,
+            ])
+        );
 
         (new FileUpdater($indexable, $config))->update($this->payload);
     }

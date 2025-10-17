@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "05eb96fdf7c54c6fc1ae0b110b868768",
+    "content-hash": "36000529ae7308974faddac0823e0a8a",
     "packages": [
         {
             "name": "adbario/php-dot-notation",
@@ -183,16 +183,16 @@
         },
         {
             "name": "boldminded/dexter-core",
-            "version": "1.0.0",
+            "version": "1.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/boldminded/dexter-core.git",
-                "reference": "9f4ae049f68a8309276251e0717f8dcf11fbbc0a"
+                "reference": "d834d27d8a576cc3a970b40c4431f0df1e2eba26"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/boldminded/dexter-core/zipball/9f4ae049f68a8309276251e0717f8dcf11fbbc0a",
-                "reference": "9f4ae049f68a8309276251e0717f8dcf11fbbc0a",
+                "url": "https://api.github.com/repos/boldminded/dexter-core/zipball/d834d27d8a576cc3a970b40c4431f0df1e2eba26",
+                "reference": "d834d27d8a576cc3a970b40c4431f0df1e2eba26",
                 "shasum": ""
             },
             "require": {
@@ -210,18 +210,18 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "Litzinger\\DexterCore\\": "src/"
+                    "BoldMinded\\DexterCore\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "commercial"
+                "proprietary"
             ],
             "support": {
                 "issues": "https://github.com/boldminded/dexter-core/issues",
-                "source": "https://github.com/boldminded/dexter-core/tree/1.0.0"
+                "source": "https://github.com/boldminded/dexter-core/tree/1.0.3"
             },
-            "time": "2025-10-15T09:32:31+00:00"
+            "time": "2025-10-17T11:31:42+00:00"
         },
         {
             "name": "brick/math",

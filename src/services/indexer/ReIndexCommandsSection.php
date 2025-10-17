@@ -3,17 +3,18 @@
 namespace boldminded\dexter\services\indexer;
 
 
+use boldminded\dexter\events\UpdateConfigEvent;
 use boldminded\dexter\queue\IndexEntryJob;
 use boldminded\dexter\services\Config;
 use boldminded\dexter\services\EntryPipelines;
 use boldminded\dexter\services\IndexableEntry;
 use boldminded\dexter\services\IndexerFactory;
-use boldminded\dexter\services\Suffix;
 use Craft;
 use craft\elements\Entry;
 use BoldMinded\DexterCore\Service\Indexer\IndexCommandCollection;
 use BoldMinded\DexterCore\Service\Indexer\IndexEntryCommand;
 use BoldMinded\DexterCore\Service\Indexer\ReIndexCommands;
+use yii\base\Event;
 
 class ReIndexCommandsSection implements ReIndexCommands
 {
@@ -27,15 +28,16 @@ class ReIndexCommandsSection implements ReIndexCommands
 
     public function getCommandCollection(): IndexCommandCollection
     {
-        // Build the Entry query
-        $query = Entry::find()
-            ->type($this->sourceId)
-            ->siteId(Craft::$app->getSites()->getCurrentSite()->id);
-
         $request = Craft::$app->getRequest();
         $offset  = $request->getBodyParam('offset');
         $limit   = $request->getBodyParam('limit');
         $clear   = $request->getBodyParam('clear');
+        $siteId  = $request->getBodyParam('siteId') ?: Craft::$app->getSites()->getCurrentSite()->id;
+
+        // Build the Entry query
+        $query = Entry::find()
+            ->type($this->sourceId)
+            ->siteId($siteId);
 
         if ($offset !== null && $offset !== '') {
             $query->offset((int)$offset);
@@ -47,6 +49,16 @@ class ReIndexCommandsSection implements ReIndexCommands
         $entries = $query->all();
 
         $config = new Config();
+
+        Event::trigger(
+            UpdateConfigEvent::class,
+            UpdateConfigEvent::EVENT_DEXTER_UPDATE_CONFIG,
+            new UpdateConfigEvent([
+                'config' => $config,
+                'siteId' => $siteId,
+            ])
+        );
+
         $indices = $config->get('indices.entries');
         $indexer = IndexerFactory::create();
         $this->indexName = $indices[$this->sourceId] ?? '[unknown]';
@@ -72,7 +84,7 @@ class ReIndexCommandsSection implements ReIndexCommands
 
         foreach ($entries as $entry) {
             $command = new IndexEntryCommand(
-                indexName: $this->indexName . Suffix::get($entry),
+                indexName: $this->indexName,
                 indexable: new IndexableEntry($entry),
                 config: $config,
                 pipelines: EntryPipelines::getPipelines($config),

@@ -3,17 +3,18 @@
 namespace boldminded\dexter\services\indexer;
 
 
+use boldminded\dexter\events\UpdateConfigEvent;
 use boldminded\dexter\queue\IndexFileJob;
 use boldminded\dexter\services\Config;
 use boldminded\dexter\services\FilePipelines;
 use boldminded\dexter\services\IndexableFile;
 use boldminded\dexter\services\IndexerFactory;
-use boldminded\dexter\services\Suffix;
 use Craft;
 use craft\elements\Asset;
 use BoldMinded\DexterCore\Service\Indexer\IndexCommandCollection;
 use BoldMinded\DexterCore\Service\Indexer\IndexFileCommand;
 use BoldMinded\DexterCore\Service\Indexer\ReIndexCommands;
+use yii\base\Event;
 
 class ReIndexCommandsFileVolume implements ReIndexCommands
 {
@@ -27,14 +28,15 @@ class ReIndexCommandsFileVolume implements ReIndexCommands
 
     public function getCommandCollection(): IndexCommandCollection
     {
-        $query = Asset::find()
-            ->volume($this->sourceId)
-            ->siteId(['default', Craft::$app->getSites()->getCurrentSite()->id]);
-
         $request = Craft::$app->getRequest();
         $offset  = $request->getBodyParam('offset');
         $limit   = $request->getBodyParam('limit');
         $clear   = $request->getBodyParam('clear');
+        $siteId  = $request->getBodyParam('siteId') ?: Craft::$app->getSites()->getCurrentSite()->id;
+
+        $query = Asset::find()
+            ->volume($this->sourceId)
+            ->siteId(['default', $siteId]);
 
         if ($offset !== null && $offset !== '') {
             $query->offset((int)$offset);
@@ -46,6 +48,16 @@ class ReIndexCommandsFileVolume implements ReIndexCommands
         $files = $query->all();
 
         $config = new Config();
+
+        Event::trigger(
+            UpdateConfigEvent::class,
+            UpdateConfigEvent::EVENT_DEXTER_UPDATE_CONFIG,
+            new UpdateConfigEvent([
+                'config' => $config,
+                'siteId' => $siteId,
+            ])
+        );
+
         $indices = $config->get('indices.files');
         $indexer = IndexerFactory::create();
         $this->indexName = $indices[$this->sourceId] ?? '[unknown]';
@@ -71,7 +83,7 @@ class ReIndexCommandsFileVolume implements ReIndexCommands
 
         foreach ($files as $file) {
             $command = new IndexFileCommand(
-                indexName: $this->indexName . Suffix::get($file),
+                indexName: $this->indexName,
                 indexable: new IndexableFile($file),
                 config: $config,
                 pipelines: FilePipelines::getPipelines($config),

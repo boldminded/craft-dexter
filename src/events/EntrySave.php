@@ -9,7 +9,6 @@ use boldminded\dexter\services\Config;
 use boldminded\dexter\services\EntryPipelines;
 use boldminded\dexter\services\IndexableEntry;
 use boldminded\dexter\services\IndexerFactory;
-use boldminded\dexter\services\Suffix;
 use Craft;
 use craft\base\Element;
 use craft\elements\Entry;
@@ -70,6 +69,16 @@ class EntrySave
         }
 
         $config = new Config();
+
+        Event::trigger(
+            UpdateConfigEvent::class,
+            UpdateConfigEvent::EVENT_DEXTER_UPDATE_CONFIG,
+            new UpdateConfigEvent([
+                'config' => $config,
+                'element' => $entry,
+            ])
+        );
+
         $indices = $config->get('indices.entries');
         $indexName = $indices[$typeHandle] ?? null;
 
@@ -78,7 +87,7 @@ class EntrySave
         }
 
         $command = new IndexEntryCommand(
-            indexName: $indexName . Suffix::get($entry),
+            indexName: $indexName,
             indexable: new IndexableEntry($entry),
             config: $config,
             pipelines: EntryPipelines::getPipelines($config),

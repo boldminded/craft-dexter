@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace boldminded\dexter\queue;
 
+use boldminded\dexter\events\UpdateConfigEvent;
 use boldminded\dexter\services\Config;
 use boldminded\dexter\services\IndexableUser;
 use boldminded\dexter\services\IndexerFactory;
@@ -14,6 +15,7 @@ use craft\queue\BaseJob;
 use BoldMinded\DexterCore\Service\Indexer\IndexerResponse;
 use BoldMinded\DexterCore\Service\Indexer\IndexProvider;
 use BoldMinded\DexterCore\Service\Indexer\IndexUserCommand;
+use yii\base\Event;
 use yii\queue\RetryableJobInterface;
 
 class IndexUserJob extends BaseJob implements RetryableJobInterface
@@ -24,8 +26,11 @@ class IndexUserJob extends BaseJob implements RetryableJobInterface
 
     public function execute($queue): void
     {
+        $siteId = $this->payload['siteId'] ?? null;
+
         $user = User::find()
             ->uid($this->uid)
+            ->siteId($siteId)
             ->one();
 
         $userGroups = array_column($user->groups ?? [], 'handle');
@@ -35,6 +40,16 @@ class IndexUserJob extends BaseJob implements RetryableJobInterface
         }
 
         $config = new Config();
+
+        Event::trigger(
+            UpdateConfigEvent::class,
+            UpdateConfigEvent::EVENT_DEXTER_UPDATE_CONFIG,
+            new UpdateConfigEvent([
+                'config' => $config,
+                'element' => $user,
+            ])
+        );
+
         $indices = $config->get('indices.users');
 
         $indexName = array_reduce($userGroups, function ($carry, $groupHandle) use ($indices) {

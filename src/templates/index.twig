@@ -75,11 +75,20 @@
         {{ csrfInput() }}
         {{ redirectInput('dexter') }}
 
+        {% if siteChoices|length %}
+            {{ forms.selectField({
+                label: "Choose Site"|t,
+                instructions: "Choose the site you would like to reindex content from."|t,
+                name: 'siteId',
+                options: siteChoices,
+            }) }}
+        {% endif %}
+
         {{ forms.selectField({
-            label: "Choose an index to rebuild."|t,
+            label: "Choose an index to rebuild"|t,
             instructions: "If an object does not exist, it will be created in "~ providerName ~". If it already exists, it\'ll get updated."|t,
             name: 'indexSource',
-            options: choices,
+            options: indexChoices,
         }) }}
 
         {{ forms.lightswitchField({
@@ -87,8 +96,6 @@
             instructions: "If you would like to clear all existing objects from the index prior to reindexing."|t,
             name: 'clear',
         }) }}
-
-
 
         <div class="btngroup">
             <input type="submit" class="btn submit" value="{{ 'Start Indexing' | t('dexter') }}">

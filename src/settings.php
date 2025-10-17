@@ -28,19 +28,20 @@ return [
     // with a hard-coded value, or another custom ENV variable. You can also leave it blank to use no prefix.
     'env' => 'test',
 
-    // Add a suffix to the end of all indices. Useful for multilingual sites.
-    // If you are using Publisher this value should be left blanks as it will automatically be updated.
+    // Add a suffix to the end of all indices. This will be automatically updated by the dexterUpdateConfig event
+    // in the events/UpdateConfigEvent.php file unless you disable it unless you set autoUpdateSuffix set to false.
     // Can be a string or a callable function. For example:
     //'suffix' => function (...$args) {
-    //    //$sites = Craft::$app->sites->getAllSites();
-    //    //
-    //    //if (count($sites) > 1) {
-    //    //    $currentSiteHandle = Craft::$app->getSites()->getCurrentSite()->handle;
-    //    //    return '_' . $currentSiteHandle;
-    //    //}
+    //    if (do something) {
+    //        return '_' . $mySuffix;
+    //    }
     //
     //    return '';
     //},
+
+    // If true, the site's handle will be appended to the end of the index name. If you want to index multiple sites,
+    // content into the same index, set this to false.
+    'appendSiteSuffix' => true,
 
     // Add the group name handle to be used to construct a menu a hierarchical menus, specifically
     // designed to render output necessary for Algolia's React HierarchicalMenu component
