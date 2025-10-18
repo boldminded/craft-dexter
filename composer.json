@@ -6,6 +6,13 @@
   "prefer-stable": true,
   "type": "craft-plugin",
   "license": "proprietary",
+  "keywords": [
+    "search",
+    "meilisearch",
+    "algolia",
+    "indexing",
+    "ai"
+  ],
   "support": {
     "email": "support@boldminded.com",
     "issues": "https://github.com/git@github.com:boldminded/craft-dexter.git/issues?state=open",
@@ -31,7 +38,9 @@
     "handle": "dexter",
     "name": "Dexter",
     "developer": "BoldMinded",
-    "documentationUrl": "https://github.com/git@github.com:boldminded/craft-dexter.git",
+    "developerUrl": "https://www.boldminded.com",
+    "documentationUrl": "https://docs.boldminded.com/dexter/docs-craft",
+    "changelogUrl": "https://github.com/boldminded/craft-dexter/blob/main/CHANGELOG.md",
     "class": "boldminded\\dexter\\Dexter"
   },
   "scripts": {
