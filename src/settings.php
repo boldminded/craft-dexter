@@ -23,6 +23,10 @@ return [
         'appKey' => '',
     ],
 
+    // The endpoint URL for the search API that returns a JSON response, e.g. https://site.com/dexter/search
+    // Change this if it collides with another URL on your site, or you just want to use a different path.
+    'endpointUrl' => 'dexter/search',
+
     // A prefix will be added to each index based on the environment. If you're using the .env file, you can
     // set this to $_ENV['ENVIRONMENT'] to read from the .env file, or override this in your config/dexter.php file
     // with a hard-coded value, or another custom ENV variable. You can also leave it blank to use no prefix.
@@ -150,13 +154,20 @@ return [
 
         // If true, the source file description and categories will be created with the AI response.
         // If parseDocumentContents.enabled is true, you generally want to keep this enabled as well.
+        'createAltText' => true,
         'createDescription' => true,
         'createCategories' => true,
 
         // If true, any updates to the file will fetch a new AI response and update the source file accordingly.
         // Leave false if you want to manually manage the description and categories after it is initially created.
+        'replaceAltText' => false,
         'replaceDescription' => false,
         'replaceCategories' => false,
+
+        // The field handle of a Plain Text field to store the description. Use dot notation for nested fields.
+        'altTextFieldHandle' => 'alt',
+        'descriptionFieldHandle' => '',
+        'categoriesFieldHandle' => '',
     ],
 
     // If indexing image files (jpg, png, or gif) it will send the image to OpenAI to describe the contents
@@ -168,15 +179,18 @@ return [
 
         // If true, the source file description and categories will be created with the AI response.
         // If parseImageContents.enabled is true, you generally want to keep this enabled as well.
+        'createAltText' => true,
         'createDescription' => true,
         'createCategories' => true,
 
         // If true, any updates to the file will fetch a new AI response and update the source file accordingly.
         // Leave false if you want to manually manage the description and categories after it is initially created.
+        'replaceAltText' => false,
         'replaceDescription' => false,
         'replaceCategories' => false,
 
         // The field handle of a Plain Text field to store the description. Use dot notation for nested fields.
+        'altTextFieldHandle' => 'alt',
         'descriptionFieldHandle' => '',
         'categoriesFieldHandle' => '',
     ],
@@ -222,13 +236,15 @@ return [
     */
     'primaryKey' => 'objectID',
 
-    // Highly recommended if you are using the ?ACT endpoint to perform searches, either via an Ajax
-    // or server side curl request. You must pass a valid CSRF_TOKEN value along with the search request.
+    // Highly recommended if you are using the endpointUrl to perform searches, either via an Ajax
+    // or server side curl request. You must pass a valid value along with the search request.
+    // Add the token in the headers:
+    //    X-CSRF-Token: [your token here]
+
     // An example POST body:
     //    {
     //        "index": "test_files",
     //        "query": "small birds",
-    //        "csrf_token": "[token string here]",
     //        "filters": {
     //            "limit": 6,
     //            "hybrid": {

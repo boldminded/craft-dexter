@@ -33,6 +33,29 @@ composer require boldminded/craft-dexter
 
 https://docs.boldminded.com/dexter/docs-craft
 
+## Search Endpoint
+
+### GET
+```
+https://mysite.com/dexter/search?index=demo_collections&term=empire
+```
+
+### POST
+```
+https://mysite.com/dexter/search
+
+body: {
+    "index": "demo_collections",
+    "term": "empire",
+    "filters": {
+        "limit": 6,
+        "hybrid": {
+          "embedder": "fullText"
+        }
+    }
+}
+```
+
 ## Template Tags
 
 Iterate over search results object directly from Algolia or Meilisearch.

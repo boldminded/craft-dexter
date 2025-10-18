@@ -8,7 +8,7 @@ use boldminded\dexter\events\EntryDelete;
 use boldminded\dexter\events\FileDelete;
 use boldminded\dexter\events\FileSave;
 use boldminded\dexter\events\EntrySave;
-use boldminded\dexter\events\Navigation;
+use boldminded\dexter\events\Endpoints;
 use boldminded\dexter\events\UpdateConfigEvent;
 use boldminded\dexter\events\UserDelete;
 use boldminded\dexter\events\UserSave;
@@ -44,10 +44,10 @@ class Dexter extends Plugin
 
     private function attachEventHandlers(): void
     {
-        (new Navigation)->subscribe();
         (new DexterTag)->subscribe();
         (new CategorySave)->subscribe();
         (new CategoryDelete)->subscribe();
+        (new Endpoints)->subscribe();
         (new EntrySave)->subscribe();
         (new EntryDelete)->subscribe();
         (new FileSave)->subscribe();
