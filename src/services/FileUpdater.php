@@ -27,19 +27,37 @@ class FileUpdater
             ->uid($this->file->getId())
             ->one();
 
+        $altTextFieldHandle = $this->options['altTextFieldHandle'] ?? '';
         $descriptionFieldHandle = $this->options['descriptionFieldHandle'] ?? '';
         $categoriesFieldHandle = $this->options['categoriesFieldHandle'] ?? '';
         $createCategories = $this->options['createCategories'] === true;
+        $replaceAltText = $this->options['replaceAltText'] === true;
         $replaceDescription = $this->options['replaceDescription'] === true;
         $replaceCategories = $this->options['replaceCategories'] === true;
 
+        $update = false;
+
+        if ($file) {
+            if ($descriptionFieldHandle && $replaceDescription) {
+                $update = true;
+                $file->setFieldValue(
+                    $descriptionFieldHandle,
+                    $values[$descriptionFieldHandle] ?? ''
+                );
+            }
+
+            if ($altTextFieldHandle && $replaceAltText) {
+                $update = true;
+                $file->$altTextFieldHandle = $values[$altTextFieldHandle] ?? '';
+            }
+        }
+
         if ($file && $descriptionFieldHandle && $replaceDescription) {
+            $update = true;
             $file->setFieldValue(
                 $descriptionFieldHandle,
                 $values[$descriptionFieldHandle] ?? ''
             );
-
-            Craft::$app->elements->saveElement($file);
         }
 
         $categoryNames = $values[$categoriesFieldHandle] ?? [];
@@ -69,8 +87,12 @@ class FileUpdater
 
             if (count($categoryIds) > 0 && $file) {
                 $file->categories = array_unique($categoryIds);
-                Craft::$app->elements->saveElement($file);
+                $update =true;
             }
+        }
+
+        if ($update === true) {
+            Craft::$app->elements->saveElement($file, false, false);
         }
 
         return true;

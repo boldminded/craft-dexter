@@ -32,7 +32,10 @@ class FileSave
                     /** @var AssetElement $file */
                     $file = $event->sender;
 
-                    if (in_array($file->uid, self::$saved)) {
+                    if (
+                        in_array($file->uid, self::$saved)
+                        || !$file->propagating // Prevent recursion when a File is updated after getting described.
+                    ) {
                         return;
                     }
 
@@ -61,7 +64,7 @@ class FileSave
 
     public function handleSaveEvent(AssetElement $file)
     {
-        $volumeHandle = $file->volume?->fsHandle;
+        $volumeHandle = $file->volume?->handle;
 
         if (!$volumeHandle) {
             return;
