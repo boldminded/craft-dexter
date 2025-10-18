@@ -37,16 +37,20 @@ class FileDescribePipeline
         }
 
         $whichOptions = $this->indexable->isImage() ? 'Image' : 'Document';
+        $createAltText = $this->config->get(sprintf('parse%sContents.createAltText', $whichOptions)) === true;
         $createDescription = $this->config->get(sprintf('parse%sContents.createDescription', $whichOptions)) === true;
         $createCategories = $this->config->get(sprintf('parse%sContents.createCategories', $whichOptions)) === true;
+        $replaceAltText = $this->config->get(sprintf('parse%sContents.replaceAltText', $whichOptions)) === true;
         $replaceDescription = $this->config->get(sprintf('parse%sContents.replaceDescription', $whichOptions)) === true;
         $replaceCategories = $this->config->get(sprintf('parse%sContents.replaceCategories', $whichOptions)) === true;
 
         if (
-            !$createCategories
+            !$createAltText
+            && !$createCategories
             && !$createDescription
             && !$replaceCategories
             && !$replaceDescription
+            && !$replaceAltText
         ) {
             return $values;
         }
@@ -61,6 +65,7 @@ class FileDescribePipeline
             $newDescription = $descriptionData['description'] ?? '';
             $newCategories = $descriptionData['tags'] ?? [];
         } else {
+            $newAltText = '';
             $newDescription = $description;
             $newCategories = [];
         }
@@ -68,18 +73,22 @@ class FileDescribePipeline
         /** @var craft\elements\Asset $entity */
         $entity = $this->indexable->getEntity();
 
+        $altTexFieldHandle = $this->config->get(sprintf('parse%sContents.altTextFieldHandle', $whichOptions)) ?: '';
         $descriptionFieldHandle = $this->config->get(sprintf('parse%sContents.descriptionFieldHandle', $whichOptions)) ?: '';
         $categoriesFieldHandle = $this->config->get(sprintf('parse%sContents.categoriesFieldHandle', $whichOptions)) ?: '';
-        $categoryGroupHandle = $this->config->get(sprintf('parse%sContents.categoryGroupHandle', $whichOptions)) ?: '';
 
         if ($descriptionFieldHandle && $replaceDescription && $newDescription) {
             $values[$descriptionFieldHandle] = $newDescription;
         }
 
-        $existingCategories = Category::find()
-            ->group($categoryGroupHandle)
-            ->select('title')
-            ->column();
+        if ($altTexFieldHandle && $replaceAltText && $newAltText) {
+            $values[$altTexFieldHandle] = $newAltText;
+        }
+
+        $existingCategories = array_map(
+            fn($cat) => $cat->title,
+            $entity->getFieldValue($categoriesFieldHandle)->all()
+        );
 
         $values[$categoriesFieldHandle] = $existingCategories;
 
