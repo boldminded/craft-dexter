@@ -1,5 +1,8 @@
 # Release Notes for Dexter
 
+## 1.0.4 - 2025-10-21
+- Fixed issue with deletions
+
 ## 1.0.3 - 2025-10-18
 - Improved error handling for missing configuration values.
 - Added frontend search endpoint `site.com/dexter/search`
