@@ -79,6 +79,7 @@ class FileDelete
         $command = new DeleteFileCommand(
             indexName: $indexName,
             id: $file->uid,
+            siteId: $file->siteId ?? Craft::$app->getSites()->getCurrentSite()->id,
             title: $file->title ?? '',
             queueJobName: DeleteFileJob::class,
         );

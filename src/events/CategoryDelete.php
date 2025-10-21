@@ -86,6 +86,7 @@ class CategoryDelete
         $command = new DeleteCategoryCommand(
             indexName: $indexName,
             id: $category->uid,
+            siteId: $category->siteId ?? Craft::$app->getSites()->getCurrentSite()->id,
             title: $category->title ?? '',
             queueJobName: DeleteCategoryJob::class,
         );

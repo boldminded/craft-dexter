@@ -77,6 +77,7 @@ class EntryDelete
         $command = new DeleteEntryCommand(
             indexName: $indexName,
             id: $entry->uid,
+            siteId: $entry->siteId ?? Craft::$app->getSites()->getCurrentSite()->id,
             title: $entry->title ?? '',
             queueJobName: DeleteEntryJob::class,
         );

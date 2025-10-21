@@ -89,6 +89,7 @@ class UserDelete
         $command = new DeleteFileCommand(
             indexName: $indexName,
             id: $user->uid,
+            siteId: $user->siteId ?? Craft::$app->getSites()->getCurrentSite()->id,
             title: $user->username ?? '',
             queueJobName: DeleteUserJob::class,
         );

@@ -21,6 +21,7 @@ class DeleteUserJob extends BaseJob implements RetryableJobInterface
     public function execute($queue): void
     {
         $indexName = $this->payload['indexName'] ?? '';
+        $siteId = $this->payload['siteId'] ?? Craft::$app->getSites()->getCurrentSite()->id;
 
         if (!$indexName) {
             return;
@@ -29,6 +30,7 @@ class DeleteUserJob extends BaseJob implements RetryableJobInterface
         $command = new DeleteUserCommand(
             indexName: $indexName,
             id: $this->uid,
+            siteId: $siteId,
             title: $this->title,
             queueJobName: DeleteUserJob::class,
         );
