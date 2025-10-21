@@ -15,8 +15,22 @@
 
     {% include 'dexter/_notifications.twig' %}
 
-    <div id="nofeeds" class="zilch{% if indices %} hidden{% endif %}">
-        <p>{{ "No indices exist yet."|t('dexter') }}</p>
+    <div class="{% if indices %} hidden{% endif %}">
+        <div class="zilch small">
+            <p>No indices found.</p>
+        </div>
+        <div class="mb-l">
+            <p>You have 2 options:</p>
+            <ol>
+                <li>[Easiest] Choose an Index below, then click Start Indexing. An index will be created based on your
+                    indices defined with the default settings. You can then use the Export Settings page to create the .json
+                    settings file in your <code>config/meilisearch</code> folder, make necessary updates, and then use the Import
+                    Settings page to update the index configuration.</li>
+                <li>[Easy] Manually create a .json file in your <code>config/meilisearch</code> folder based off the default
+                    settings, then use the Import Settings page to create the index with the initial settings. Return to
+                    this page and Start Indexing.</li>
+            </ol>
+        </div>
     </div>
 
     {% if indices|length %}
