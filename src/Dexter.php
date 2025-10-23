@@ -9,6 +9,7 @@ use boldminded\dexter\events\FileDelete;
 use boldminded\dexter\events\FileSave;
 use boldminded\dexter\events\EntrySave;
 use boldminded\dexter\events\Endpoints;
+use boldminded\dexter\events\Install;
 use boldminded\dexter\events\UpdateConfigEvent;
 use boldminded\dexter\events\UserDelete;
 use boldminded\dexter\events\UserSave;
@@ -52,6 +53,7 @@ class Dexter extends Plugin
         (new EntryDelete)->subscribe();
         (new FileSave)->subscribe();
         (new FileDelete)->subscribe();
+        (new Install)->subscribe();
         (new UserSave)->subscribe();
         (new UserDelete)->subscribe();
         (new UpdateConfigEvent)->subscribe();
