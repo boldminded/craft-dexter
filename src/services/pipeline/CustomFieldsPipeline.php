@@ -23,7 +23,7 @@ class CustomFieldsPipeline
 
     private function getIndexableFields(string $scope): array
     {
-        $fields = $this->config->get('indexableFields.' . $scope);
+        $fields = $this->config->get('indexableFields.' . $scope) ?? [];
         $types = $this->indexable->getTypes();
 
         foreach ($types as $type) {
