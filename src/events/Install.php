@@ -37,7 +37,7 @@ class Install
 
     private function getDefaultConfig(): string
     {
-        $siteUrl = Craft::$app->getSites()->getCurrentSite()->getBaseUrl();
+        $siteUrl = rtrim(Craft::$app->getSites()->getCurrentSite()->getBaseUrl(), '/');
         $vendorPath = Craft::getAlias('@vendor') . '/boldminded/craft-dexter/src/settings.php';
 
         return <<<EOL
