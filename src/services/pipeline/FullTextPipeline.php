@@ -50,8 +50,8 @@ class FullTextPipeline
         });
 
         $text = strip_tags(implode(' ', array_unique($flat)));
+        $text = preg_replace('/(?:https?:\/\/|www\.)\S+/i', '', $text);
 
-        // @todo Remove URLs from flattened text?
         // @todo trigger an event/hook to modify on the fly?
         $text = $this->stopWordRemover->remove($text, $this->config->get('stopWords'));
 
