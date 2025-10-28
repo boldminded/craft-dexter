@@ -1,5 +1,8 @@
 # Release Notes for Dexter
 
+## 1.0.6 - UNRELEASED
+- URLs are removed from the `__full_text` property
+
 ## 1.0.5 - 2025-10-23
 - Small quality of life improvement. Create the config/dexter.php file on first install.
 - Add instructions when no indices exist.
