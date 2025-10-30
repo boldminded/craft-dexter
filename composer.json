@@ -22,7 +22,7 @@
   },
   "require": {
     "php": ">=8.2",
-    "boldminded/dexter-core": "1.0.5",
+    "boldminded/dexter-core": "1.0.6",
     "craftcms/cms": "^5.8.0"
   },
   "require-dev": {
