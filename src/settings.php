@@ -211,16 +211,27 @@ return [
     // includeFullText to be enabled. When content is indexed, it will use the __full_text property to generate
     // embeddings/vectors for each object. This will allow you to search for similar content based on the text
     // in the __full_text property. You must also include the following filter in your search queries:
-    // "hybrid": {
-    //     "embedder": "fullText"
+    // hybrid: {
+    //     embedder: "fullText",
+    //     semanticRatio: 1.0
     // }
+    // https://www.meilisearch.com/docs/reference/api/search#hybrid-search
     // https://www.meilisearch.com/docs/learn/ai_powered_search/getting_started_with_ai_search
-    'enableContextSearch' => false,
+    // If you are using Algolia, this will set the mode to neuralSearch and override the algolia.mode setting.
+    'enableSemanticSearch' => false,
+
+    // This value is calculated differently in Meilisearch and Algolia. In Meili you're probably looking for a lower
+    // value, 0.5 to 1.5 (maybe higher). In Meili, to see the score add showRankingScore: true to your query, and it
+    // will be available as the _rankingScore property on each result. This filtering is performed post search by
+    // Dexter. It will remove anything below this value from the results. Setting it to null disables the filtering.
+    // For Algolia you will need to add getRankingInfo: true to your query and neural search needs to be enabled
+    // (you must have the Elevate plan or greater to enable neural search)
+    'minimumRankingScore' => null,
 
     // If true, Dexter will use the defined aiProvider to further filter the search results.
     // This will not add additional results to the list, it will only perform an additional search filtering
     // the initial results based on the query, which can take into account advanced logic such as "NOT" and "OR" operators.
-    // enableContextSearch must be enabled
+    // enableSemanticSearch must be enabled
     'enableAdvancedSearch' => false,
 
     // This is the property name that is used for the index primaryKey. In most cases the default "objectID" is sufficient.
