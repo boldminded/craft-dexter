@@ -10,7 +10,7 @@ class Search
 {
     public function __invoke(array $params): array
     {
-        $provider = SearchFactory::create();
+        $provider = SearchFactory::create($params['provider'] ?? '');
 
         $index = Normalizer::indexName($params);
 

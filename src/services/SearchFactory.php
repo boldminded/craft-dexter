@@ -11,10 +11,10 @@ use BoldMinded\DexterCore\Service\Search\SearchProvider;
 
 class SearchFactory
 {
-    public static function create(): SearchProvider
+    public static function create(string $providerName = ''): SearchProvider
     {
         $config = new Config();
-        $providerName = $config->get('provider');
+        $providerName = $providerName ?: $config->get('provider');
 
         return match ($providerName) {
             'meilisearch' => new MeilisearchSearch(
