@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2b0c0ffc6858d1a6a9f244542a6fd403",
+    "content-hash": "43ebaf7e45211ee04aff3ba35d589a53",
     "packages": [
         {
             "name": "adbario/php-dot-notation",
@@ -183,16 +183,16 @@
         },
         {
             "name": "boldminded/dexter-core",
-            "version": "1.0.4",
+            "version": "1.0.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/boldminded/dexter-core.git",
-                "reference": "4d1e3a855117c785e0249e19d0ef2039ed71d14b"
+                "reference": "94ff3ce810ee81c44372c9a8f4fcf83372afe378"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/boldminded/dexter-core/zipball/4d1e3a855117c785e0249e19d0ef2039ed71d14b",
-                "reference": "4d1e3a855117c785e0249e19d0ef2039ed71d14b",
+                "url": "https://api.github.com/repos/boldminded/dexter-core/zipball/94ff3ce810ee81c44372c9a8f4fcf83372afe378",
+                "reference": "94ff3ce810ee81c44372c9a8f4fcf83372afe378",
                 "shasum": ""
             },
             "require": {
@@ -219,9 +219,9 @@
             ],
             "support": {
                 "issues": "https://github.com/boldminded/dexter-core/issues",
-                "source": "https://github.com/boldminded/dexter-core/tree/1.0.4"
+                "source": "https://github.com/boldminded/dexter-core/tree/1.0.7"
             },
-            "time": "2025-10-20T13:44:42+00:00"
+            "time": "2025-11-03T14:19:26+00:00"
         },
         {
             "name": "brick/math",

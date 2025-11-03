@@ -1,5 +1,8 @@
 # Release Notes for Dexter
 
+## 1.0.7.1 - 2025-11-03
+- Version bump dexter-core package to make sure .lock file is correct
+
 ## 1.0.7 - 2025-11-03
 - Renamed `enableContextSearch` setting to `enableSemanticSearch`
 - Added minimumRankingScore setting to post filter results based on vector scores
