@@ -1,5 +1,10 @@
 # Release Notes for Dexter
 
+## 1.0.7 - 2025-11-03
+- Renamed `enableContextSearch` setting to `enableSemanticSearch`
+- Added minimumRankingScore setting to post filter results based on vector scores
+- Added provider tag param to override config
+
 ## 1.0.6 - 2025-10-30
 - Added support for multi-index searching through the `craft.dexter.multiSearch()` tag.
 - URLs are removed from the `__full_text` property
