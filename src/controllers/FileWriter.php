@@ -2,7 +2,6 @@
 
 namespace boldminded\dexter\controllers;
 
-use boldminded\dexter\services\LoggerFactory;
 use Craft;
 
 class FileWriter
