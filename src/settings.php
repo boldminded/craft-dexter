@@ -97,9 +97,7 @@ return [
     ],
 
     // Required - only entries within the defined types will be indexed. Files from defined volumes can
-    // also be indexed. In the example below, the numerical value at the end is the channel ID or upload directory ID.
-    // Since channel names can change, and upload directories don't have short names, Dexter uses their respective IDs.
-    // Dexter cannot target specific subdirectories within an upload destination.
+    // also be indexed. In the example below, the handle is the array key, and the index name is the value.
     'indices' => [
         'entries' => [
             //'page' => 'pages',
