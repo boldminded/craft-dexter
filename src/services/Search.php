@@ -18,14 +18,14 @@ class Search
             throw new \Exception('Must specify an index to search');
         }
 
-        $term = Normalizer::searchQuery($params);
+        $query = Normalizer::searchQuery($params);
         $perPage = $params['perPage'] ?? 50;
         $searchParams = $params['searchParams'] ?? [];
         $idsOnly = $params['idsOnly'] ?? false;
 
         $results = $provider->search(
             $index,
-            $term,
+            $query,
             $searchParams,
             $perPage,
         );
