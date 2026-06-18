@@ -28,6 +28,23 @@ class ExportSettings
         }
 
         $indexer = IndexerFactory::create();
+
+        // Security: the export filename is derived from this value, so a traversal payload
+        // (e.g. "../../../path/to/target") would let FileWriter write outside the config directory.
+        // Only allow exporting an index that actually exists in the provider's index list.
+        $knownIndices = array_column($indexer->list(), 'indexName');
+
+        if (!in_array($indexName, $knownIndices, true)) {
+            Craft::$app
+                ->getSession()
+                ->setFlash(
+                    'dexterError',
+                    Craft::t('dexter', 'Invalid index selected.')
+                );
+
+            return false;
+        }
+
         $settings = $indexer->export($indexName);
 
         if (!is_array($settings) && empty($settings)) {
