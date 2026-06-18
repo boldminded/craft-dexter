@@ -52,11 +52,11 @@ class DeleteCategoryJob extends BaseJob implements RetryableJobInterface
 
     public function getTtr()
     {
-        // TODO: Implement getTtr() method.
+        return 300;
     }
 
     public function canRetry($attempt, $error)
     {
-        // TODO: Implement canRetry() method.
+        return false;
     }
 }

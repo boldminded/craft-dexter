@@ -23,7 +23,10 @@
   "require": {
     "php": ">=8.2",
     "boldminded/dexter-core": "1.0.7",
-    "craftcms/cms": "^5.8.0"
+    "craftcms/cms": "^5.8.0 || ^6.0.0"
+  },
+  "suggest": {
+    "craftcms/yii2-adapter": "Required when running on Craft 6. Dexter uses Craft's legacy Yii-based APIs, which Craft 6 only provides through the adapter. On Craft 6, run `composer require craftcms/yii2-adapter`. Not needed (and not installable) on Craft 5."
   },
   "require-dev": {
     "craftcms/ecs": "dev-main",

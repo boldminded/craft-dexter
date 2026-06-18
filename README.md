@@ -33,7 +33,23 @@ Dexter is built for indexing and displaying the most relevant search results fas
 
 ## Requirements
 
-This plugin requires Craft CMS 5.8.0 or later, and PHP 8.2 or later.
+This plugin requires Craft CMS 5.8.0 or later, or Craft CMS 6.0.0 or later, and PHP 8.2 or later.
+
+### Running on Craft 6
+
+Craft 6 is a Laravel-based application and no longer ships the legacy Yii APIs that Dexter
+relies on. Those APIs are provided by the official compatibility layer,
+[`craftcms/yii2-adapter`](https://craftcms.com/docs/6.x/extend/adapter). On Craft 6 you must
+install it alongside Dexter:
+
+```bash
+composer require craftcms/yii2-adapter
+```
+
+The adapter activates automatically once any installed plugin requires it. It is **not** needed
+on Craft 5 (and cannot be installed there, since it depends on `craftcms/cms ^6`), which is why
+it is listed under `suggest` rather than `require` — keeping Dexter installable on both Craft 5
+and Craft 6 from a single release.
 
 ## Installation
 

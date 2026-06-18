@@ -21,12 +21,7 @@ class FileWriter
 
                 Craft::error('[Dexter] ' . $message, __METHOD__);
 
-                Craft::$app
-                    ->getSession()
-                    ->setFlash(
-                        'dexterError',
-                        $message
-                    );
+                self::setFlash('dexterError', $message);
 
                 return false;
             }
@@ -42,12 +37,7 @@ class FileWriter
 
                 Craft::error('[Dexter] ' . $message, __METHOD__);
 
-                Craft::$app
-                    ->getSession()
-                    ->setFlash(
-                        'dexterError',
-                        $message
-                    );
+                self::setFlash('dexterError', $message);
 
                 return false;
             }
@@ -58,25 +48,29 @@ class FileWriter
                 ]
             );
 
-            Craft::$app
-                ->getSession()
-                ->setFlash(
-                    'dexterNotice',
-                    $message
-                );
+            self::setFlash('dexterNotice', $message);
 
             return true;
         } catch (\Exception $exception) {
             Craft::error('[Dexter] ' . $exception->getMessage(), __METHOD__);
 
-            Craft::$app
-                ->getSession()
-                ->setFlash(
-                    'dexterError',
-                    $exception->getMessage()
-                );
+            self::setFlash('dexterError', $exception->getMessage());
         }
 
         return false;
+    }
+
+    /**
+     * Set a flash message, but only for web requests. Sessions are not
+     * available in console requests (e.g. `craft plugin/install`), and
+     * Craft throws when getSession() is called there.
+     */
+    private static function setFlash(string $key, string $message): void
+    {
+        if (Craft::$app->getRequest()->getIsConsoleRequest()) {
+            return;
+        }
+
+        Craft::$app->getSession()->setFlash($key, $message);
     }
 }
