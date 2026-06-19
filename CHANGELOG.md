@@ -1,5 +1,8 @@
 # Release Notes for Dexter
 
+## 1.0.8
+- Added support for Craft 6 while maintaining support for Craft 5. Requires running `composer require craftcms/yii2-adapter` if using Craft 6.
+
 ## 1.0.7.1 - 2025-11-03
 - Version bump dexter-core package to make sure .lock file is correct
 
