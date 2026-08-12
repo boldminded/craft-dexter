@@ -6,6 +6,7 @@ namespace boldminded\dexter\services;
 
 use craft\elements\Asset as AssetElement;
 use BoldMinded\DexterCore\Contracts\ConfigInterface;
+use BoldMinded\DexterCore\Service\HostReachability;
 use BoldMinded\DexterCore\Contracts\CustomFieldInterface;
 use BoldMinded\DexterCore\Contracts\IndexableFileInterface;
 use BoldMinded\DexterCore\Contracts\IndexableInterface;
@@ -99,9 +100,59 @@ class IndexableFile implements IndexableInterface, IndexableFileInterface
         return $this->file->mimeType;
     }
 
+    /**
+     * The address an AI provider is given for this file.
+     *
+     * Image description works by handing the provider a URL that it fetches
+     * itself, which fails for any site it cannot reach from the internet --
+     * local development, staging behind auth, an intranet. In those cases the
+     * image is inlined as a data URI instead, so describing works without the
+     * site being publicly addressable.
+     *
+     * Only images are inlined. Documents are parsed locally and only their
+     * extracted text is sent, so their URL is never fetched remotely.
+     */
     public function getAbsoluteUrl(): string
     {
-        return $this->file->getUrl();
+        $url = (string) $this->file->getUrl();
+
+        if (!$this->isImage() || HostReachability::isPublic($url, $this->config)) {
+            return $url;
+        }
+
+        return $this->dataUri() ?: $url;
+    }
+
+    /**
+     * The image as a data URI, or an empty string when it cannot be read.
+     *
+     * Guarded by a size limit: providers cap request bodies, and base64
+     * inflates by about a third, so a large original would be rejected after
+     * the cost of reading and encoding it.
+     */
+    private function dataUri(): string
+    {
+        $path = $this->getAbsolutePath();
+
+        if ($path === '' || !is_readable($path)) {
+            return '';
+        }
+
+        $maxBytes = (int) ($this->config?->get('maxInlineImageBytes') ?: 15 * 1024 * 1024);
+        $size = @filesize($path);
+
+        if ($size === false || $size > $maxBytes) {
+            return '';
+        }
+
+        $contents = @file_get_contents($path);
+
+        if ($contents === false) {
+            return '';
+        }
+
+        return 'data:' . ($this->getMimeType() ?: 'image/jpeg')
+            . ';base64,' . base64_encode($contents);
     }
 
     public function getAbsolutePath(): string

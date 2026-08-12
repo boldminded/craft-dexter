@@ -241,6 +241,17 @@ return [
     // domain into every document, so an index built on staging points at staging everywhere.
     'assetUrls' => 'absolute',
 
+    // Hostname suffixes an AI provider cannot reach, so images on them are inlined as a data URI
+    // rather than fetched by URL. Appended to the reserved TLDs Dexter already knows -- .test,
+    // .localhost, .local, .ddev and similar -- so adding your own convention keeps the built-in
+    // protection. A leading dot is optional: 'internal' and '.internal' behave the same.
+    // For example: ['internal', '.corp.example.com']
+    'localHostSuffixes' => [],
+
+    // Largest image Dexter will inline as a data URI. Providers cap request bodies, and base64
+    // inflates by roughly a third, so anything above this is skipped rather than sent and rejected.
+    'maxInlineImageBytes' => 15 * 1024 * 1024,
+
     // This is the property name that is used for the index primaryKey. In most cases the default "objectID" is sufficient.
     // https://www.meilisearch.com/docs/learn/getting_started/primary_key
     // If in the event you want to change the primary key name (you can set it to "entry_id" if you want), you can

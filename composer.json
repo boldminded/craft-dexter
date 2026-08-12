@@ -1,65 +1,65 @@
 {
-  "name": "boldminded/craft-dexter",
-  "description": "Advanced Algolia or Meilisearch index management and search",
-  "version": "1.0.8",
-  "minimum-stability": "dev",
-  "prefer-stable": true,
-  "type": "craft-plugin",
-  "license": "proprietary",
-  "keywords": [
-    "search",
-    "meilisearch",
-    "algolia",
-    "indexing",
-    "ai"
-  ],
-  "support": {
-    "email": "support@boldminded.com",
-    "issues": "https://github.com/git@github.com:boldminded/craft-dexter.git/issues?state=open",
-    "source": "https://github.com/git@github.com:boldminded/craft-dexter.git",
-    "docs": "https://github.com/git@github.com:boldminded/craft-dexter.git",
-    "rss": "https://github.com/git@github.com:boldminded/craft-dexter.git/releases.atom"
-  },
-  "require": {
-    "php": ">=8.2",
-    "boldminded/dexter-core": "^1.0.11",
-    "craftcms/cms": "^5.8.0 || ^6.0.0"
-  },
-  "suggest": {
-    "craftcms/yii2-adapter": "Required when running on Craft 6. Dexter uses Craft's legacy Yii-based APIs, which Craft 6 only provides through the adapter. On Craft 6, run `composer require craftcms/yii2-adapter`. Not needed (and not installable) on Craft 5."
-  },
-  "require-dev": {
-    "craftcms/ecs": "dev-main",
-    "craftcms/phpstan": "dev-main"
-  },
-  "autoload": {
-    "psr-4": {
-      "boldminded\\dexter\\": "src/"
-    }
-  },
-  "extra": {
-    "handle": "dexter",
-    "name": "Dexter",
-    "developer": "BoldMinded",
-    "developerUrl": "https://www.boldminded.com",
-    "documentationUrl": "https://docs.boldminded.com/dexter/docs-craft",
-    "changelogUrl": "https://github.com/boldminded/craft-dexter/blob/main/CHANGELOG.md",
-    "class": "boldminded\\dexter\\Dexter"
-  },
-  "scripts": {
-    "check-cs": "ecs check --ansi",
-    "fix-cs": "ecs check --ansi --fix",
-    "phpstan": "phpstan --memory-limit=1G"
-  },
-  "config": {
-    "sort-packages": true,
-    "platform": {
-      "php": "8.2"
+    "name": "boldminded/craft-dexter",
+    "description": "Advanced Algolia or Meilisearch index management and search",
+    "version": "1.0.8",
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "type": "craft-plugin",
+    "license": "proprietary",
+    "keywords": [
+        "search",
+        "meilisearch",
+        "algolia",
+        "indexing",
+        "ai"
+    ],
+    "support": {
+        "email": "support@boldminded.com",
+        "issues": "https://github.com/git@github.com:boldminded/craft-dexter.git/issues?state=open",
+        "source": "https://github.com/git@github.com:boldminded/craft-dexter.git",
+        "docs": "https://github.com/git@github.com:boldminded/craft-dexter.git",
+        "rss": "https://github.com/git@github.com:boldminded/craft-dexter.git/releases.atom"
     },
-    "allow-plugins": {
-      "craftcms/plugin-installer": true,
-      "php-http/discovery": true,
-      "yiisoft/yii2-composer": true
+    "require": {
+        "php": ">=8.2",
+        "boldminded/dexter-core": "^1.0.12",
+        "craftcms/cms": "^5.8.0 || ^6.0.0"
+    },
+    "suggest": {
+        "craftcms/yii2-adapter": "Required when running on Craft 6. Dexter uses Craft's legacy Yii-based APIs, which Craft 6 only provides through the adapter. On Craft 6, run `composer require craftcms/yii2-adapter`. Not needed (and not installable) on Craft 5."
+    },
+    "require-dev": {
+        "craftcms/ecs": "dev-main",
+        "craftcms/phpstan": "dev-main"
+    },
+    "autoload": {
+        "psr-4": {
+            "boldminded\\dexter\\": "src/"
+        }
+    },
+    "extra": {
+        "handle": "dexter",
+        "name": "Dexter",
+        "developer": "BoldMinded",
+        "developerUrl": "https://www.boldminded.com",
+        "documentationUrl": "https://docs.boldminded.com/dexter/docs-craft",
+        "changelogUrl": "https://github.com/boldminded/craft-dexter/blob/main/CHANGELOG.md",
+        "class": "boldminded\\dexter\\Dexter"
+    },
+    "scripts": {
+        "check-cs": "ecs check --ansi",
+        "fix-cs": "ecs check --ansi --fix",
+        "phpstan": "phpstan --memory-limit=1G"
+    },
+    "config": {
+        "sort-packages": true,
+        "platform": {
+            "php": "8.2"
+        },
+        "allow-plugins": {
+            "craftcms/plugin-installer": true,
+            "php-http/discovery": true,
+            "yiisoft/yii2-composer": true
+        }
     }
-  }
 }
