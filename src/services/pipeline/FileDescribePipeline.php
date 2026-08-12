@@ -77,25 +77,37 @@ class FileDescribePipeline
         $descriptionFieldHandle = $this->config->get(sprintf('parse%sContents.descriptionFieldHandle', $whichOptions)) ?: '';
         $categoriesFieldHandle = $this->config->get(sprintf('parse%sContents.categoriesFieldHandle', $whichOptions)) ?: '';
 
-        if ($descriptionFieldHandle && $replaceDescription && $newDescription) {
+        // Gated on create OR replace, not replace alone: FileUpdater decides
+        // which applies by looking at the field. Sending nothing when only
+        // create was enabled meant createDescription and createAltText could
+        // never fill an empty field.
+        if ($descriptionFieldHandle && ($createDescription || $replaceDescription) && $newDescription) {
             $values[$descriptionFieldHandle] = $newDescription;
         }
 
-        if ($altTexFieldHandle && $replaceAltText && $newAltText) {
+        if ($altTexFieldHandle && ($createAltText || $replaceAltText) && $newAltText) {
             $values[$altTexFieldHandle] = $newAltText;
         }
 
-        $existingCategories = array_map(
-            fn($cat) => $cat->title,
-            $entity->getFieldValue($categoriesFieldHandle)->all()
-        );
+        // Guarded: with no categories field configured -- the default --
+        // getFieldValue('') has no query to call all() on and fatals, which
+        // would take down every described file.
+        $existingCategories = [];
 
-        $values[$categoriesFieldHandle] = $existingCategories;
+        if ($categoriesFieldHandle) {
+            $existingField = $entity->getFieldValue($categoriesFieldHandle);
+
+            if ($existingField && method_exists($existingField, 'all')) {
+                $existingCategories = array_map(fn($cat) => $cat->title, $existingField->all());
+            }
+
+            $values[$categoriesFieldHandle] = $existingCategories;
+        }
 
         asort($newCategories);
         asort($existingCategories);
 
-        if ($categoriesFieldHandle && $replaceCategories && $newCategories !== $existingCategories) {
+        if ($categoriesFieldHandle && ($createCategories || $replaceCategories) && $newCategories !== $existingCategories) {
             $values[$categoriesFieldHandle] = $newCategories;
         }
 
