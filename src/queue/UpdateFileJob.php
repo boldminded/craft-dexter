@@ -33,8 +33,8 @@ class UpdateFileJob extends BaseJob implements RetryableJobInterface
             return;
         }
 
-        $indexable = new IndexableFile($file);
         $config = new Config();
+        $indexable = new IndexableFile($file, $config);
 
         Event::trigger(
             UpdateConfigEvent::class,

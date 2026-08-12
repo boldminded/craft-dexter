@@ -90,7 +90,7 @@ class FileSave
 
         $command = new IndexFileCommand(
             indexName: $indexName,
-            indexable: new IndexableFile($file),
+            indexable: new IndexableFile($file, $config),
             config: $config,
             pipelines: FilePipelines::getPipelines($config),
             queueJobName: IndexFileJob::class,

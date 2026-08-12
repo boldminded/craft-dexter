@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace boldminded\dexter\services;
 
 use craft\elements\Asset as AssetElement;
+use BoldMinded\DexterCore\Contracts\ConfigInterface;
 use BoldMinded\DexterCore\Contracts\CustomFieldInterface;
 use BoldMinded\DexterCore\Contracts\IndexableFileInterface;
 use BoldMinded\DexterCore\Contracts\IndexableInterface;
@@ -13,7 +14,8 @@ class IndexableFile implements IndexableInterface, IndexableFileInterface
 {
 
     public function __construct(
-        private AssetElement $file
+        private AssetElement $file,
+        private ?ConfigInterface $config = null
     ) {
     }
 
@@ -49,8 +51,22 @@ class IndexableFile implements IndexableInterface, IndexableFileInterface
             'enabled' => $this->file->enabled,
             'siteId' => $this->file->siteId,
             'status' => $this->file->getStatus(),
-            'url' => $this->file->getUrl(),
+            'url' => $this->url(),
         ], $this->file->getFieldValues());
+    }
+
+    /**
+     * The asset URL in the form named by the assetUrls setting. Falls back to
+     * Craft's own URL when no config was supplied, which keeps the older
+     * two-argument-less construction working.
+     */
+    private function url(): string
+    {
+        if ($this->config === null) {
+            return (string) ($this->file->getUrl() ?? '');
+        }
+
+        return AssetUrlResolver::resolve($this->file, $this->config);
     }
 
     public function getId(): int|string

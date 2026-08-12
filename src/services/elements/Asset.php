@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace boldminded\dexter\services\elements;
 
+use boldminded\dexter\services\AssetUrlResolver;
 use boldminded\dexter\services\FilePipelines;
 use boldminded\dexter\services\Filterable;
 use boldminded\dexter\services\IndexableFile;
@@ -59,8 +60,8 @@ class Asset implements ElementInterface
             'uid',
             'siteId',
             'type',
-            'url',
         ]), [
+            'url' => AssetUrlResolver::resolve($asset, $this->config),
             'dateCreated' => $asset->dateCreated?->getTimestamp(),
             'dateUpdated' => $asset->dateUpdated?->getTimestamp(),
         ], $asset->getSerializedFieldValues());
@@ -80,7 +81,7 @@ class Asset implements ElementInterface
         foreach ($pipelines as $pipelineClass) {
             $pipelineBuilder->add(
                 new $pipelineClass(
-                    new IndexableFile($asset),
+                    new IndexableFile($asset, $this->config),
                     $this->config
                 )
             );

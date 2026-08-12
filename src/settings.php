@@ -232,6 +232,15 @@ return [
     // enableSemanticSearch must be enabled
     'enableAdvancedSearch' => false,
 
+    // How asset URLs are indexed. Assets are resolved through their volume's filesystem.
+    //   'absolute' - includes scheme and domain, e.g. https://example.com/images/photo.jpg
+    //   'url'      - site relative, e.g. /images/photo.jpg
+    //   'path'     - the stored file name, as authored
+    // Defaults to 'absolute', which is what Dexter has always indexed. Only change this if the
+    // consumer of your index needs a different form. Note that an absolute URL bakes the current
+    // domain into every document, so an index built on staging points at staging everywhere.
+    'assetUrls' => 'absolute',
+
     // This is the property name that is used for the index primaryKey. In most cases the default "objectID" is sufficient.
     // https://www.meilisearch.com/docs/learn/getting_started/primary_key
     // If in the event you want to change the primary key name (you can set it to "entry_id" if you want), you can

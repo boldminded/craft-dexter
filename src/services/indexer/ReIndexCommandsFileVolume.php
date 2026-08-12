@@ -84,7 +84,7 @@ class ReIndexCommandsFileVolume implements ReIndexCommands
         foreach ($files as $file) {
             $command = new IndexFileCommand(
                 indexName: $this->indexName,
-                indexable: new IndexableFile($file),
+                indexable: new IndexableFile($file, $config),
                 config: $config,
                 pipelines: FilePipelines::getPipelines($config),
                 queueJobName: IndexFileJob::class
